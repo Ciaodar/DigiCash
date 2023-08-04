@@ -8,7 +8,7 @@ namespace DigiCash.Controllers
     [Route("[controller]")]
     public class TransactionHistoryController : Controller
     {
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> transactionHistory([FromBody] Wallet wallet)
         {
             return Ok();

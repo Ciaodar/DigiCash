@@ -8,10 +8,9 @@ namespace DigiCash.Controllers
     [Route("[controller]")]
     public class WithdrawMoneyController : Controller
     {
-        [HttpPost]
+        [HttpPut]
         public async Task<IActionResult> withdrawMoney([FromBody] Wallet wallet)
         {
-            
             return Ok();
         }
     }

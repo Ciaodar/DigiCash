@@ -9,7 +9,7 @@ namespace DigiCash.Controllers
     public class MoneyTransferController : Controller
     {
         [HttpPost]
-        public async Task<IActionResult> moneyTransfer([FromBody] Money money)
+        public async Task<IActionResult> moneyTransfer([FromBody] Wallet wallet)
         {
             return Ok();
         }

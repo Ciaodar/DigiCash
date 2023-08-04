@@ -9,8 +9,10 @@ namespace DigiCash.Controllers
     public class ShowBalanceController : Controller
     {
         [HttpPost]
-        public async Task<IActionResult> showBalance([FromBody] Money money)
+        public async Task<IActionResult> showBalance([FromBody] User user)
         {
+
+            
             return Ok();
         }
     }

@@ -9,7 +9,7 @@ namespace DigiCash.Controllers
     public class DepositMoneyController : Controller
     {
         [HttpPost]
-        public async Task<IActionResult> depositMoney([FromBody] Money money) {
+        public async Task<IActionResult> depositMoney([FromBody] Wallet wallet) {
             
             return Ok();
         }

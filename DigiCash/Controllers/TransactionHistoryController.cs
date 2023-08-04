@@ -9,7 +9,7 @@ namespace DigiCash.Controllers
     public class TransactionHistoryController : Controller
     {
         [HttpPost]
-        public async Task<IActionResult> transactionHistory([FromBody] Money money)
+        public async Task<IActionResult> transactionHistory([FromBody] Wallet wallet)
         {
             return Ok();
         }

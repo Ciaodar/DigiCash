@@ -18,12 +18,12 @@ namespace DigiCash.Controllers
             signInManager = _signInManager;
         }
 
-        public async Task<IActionResult> Register([FromForm] Login log)
+        public async Task<IActionResult> Register([FromForm] User log)
         {
             return Ok();
         }
 
-        public async Task<IActionResult> Login([FromForm] Login log)
+        public async Task<IActionResult> Login([FromForm] User log)
         {
             return Ok();
         }

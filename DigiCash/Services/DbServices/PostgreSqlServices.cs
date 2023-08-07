@@ -4,12 +4,8 @@ using DigiCash.Models.DbModels;
 
 namespace DigiCash.Services
 {
-    public class PostgreSqlServices : PostgreSqlModel
+    public class PostgreSqlServices : DBModel
     {
-        public PostgreSqlServices()
-        {
-        }
-
         public override void addValue(User user)
         {
             //yeni bir kullanıcı oluşturur

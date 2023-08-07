@@ -4,7 +4,7 @@ using DigiCash.Models.DbModels;
 
 namespace DigiCash.Services
 {
-    public class MongoDbServices : MongoDbModel
+    public class MongoDbServices : DBModel
     {
         public override void addValue(ProcessHistory processHistory)
         {

@@ -1,6 +1,17 @@
-﻿var builder = WebApplication.CreateBuilder(args);
+﻿using DigiCash.Models;
+using DigiCash.Services;
+
+var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.Services.Configure<MongoDbSettings>(builder.Configuration.GetSection("MongoDb"));
+builder.Services.AddSingleton<MongoDbServices>();
+
+builder.Services.Configure<ConfigSettings>(builder.Configuration.GetSection("AppConfig"));
+
+builder.Services.AddSingleton<AmountServices>();
+builder.Services.AddSingleton<BalanceServices>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

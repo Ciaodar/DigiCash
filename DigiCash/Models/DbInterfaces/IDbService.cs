@@ -1,5 +1,5 @@
 ﻿using System;
-namespace DigiCash.Services
+namespace DigiCash.Models
 {
     public interface IDbService
     {

@@ -17,12 +17,14 @@
 
   <ItemGroup>
     <None Remove="Models\" />
-    <None Remove="Services\DbInterfaces\" />
     <None Remove="Services\DbServices\" />
+    <None Remove="Models\DbInterfaces\" />
+    <None Remove="Models\DbModels\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
-    <Folder Include="Services\DbInterfaces\" />
     <Folder Include="Services\DbServices\" />
+    <Folder Include="Models\DbInterfaces\" />
+    <Folder Include="Models\DbModels\" />
   </ItemGroup>
 </Project>

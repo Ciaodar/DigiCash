@@ -20,11 +20,15 @@
     <None Remove="Services\DbServices\" />
     <None Remove="Models\DbInterfaces\" />
     <None Remove="Models\DbModels\" />
+    <None Remove="Models\HistoryModel\" />
+    <None Remove="Models\DbSettings\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
     <Folder Include="Services\DbServices\" />
     <Folder Include="Models\DbInterfaces\" />
     <Folder Include="Models\DbModels\" />
+    <Folder Include="Models\HistoryModel\" />
+    <Folder Include="Models\DbSettings\" />
   </ItemGroup>
 </Project>

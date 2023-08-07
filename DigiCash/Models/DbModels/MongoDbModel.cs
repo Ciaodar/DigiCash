@@ -5,9 +5,11 @@ namespace DigiCash.Models.DbModels
     {
         public virtual void addValue() { }
         public virtual void addValue(int i) { }
-        public abstract void deleteValue();
-        public abstract void getValue();
-        public abstract void updateValue();
+        public virtual void deleteValue() { }
+        public virtual void getValue() { }
+        public virtual void getValue(string WalletId) { }
+        public virtual void updateValue() { }
+        public virtual void updateValue(string WalletId, History historyValue) { }
     }
 }
 

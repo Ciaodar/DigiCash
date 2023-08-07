@@ -4,57 +4,64 @@ namespace DigiCash.Services
 {
     public class WalletServices
     {
-        public async void Withdraw(string walletId, double amount)
-        {
-            PostgreSqlServices pservice = new PostgreSqlServices();
-            Wallet wallet = pservice.getValue(walletId);
-            AmountServices aservice = new AmountServices();
-            bool aresponse= await aservice.CheckAmountLimit(wallet/*.walletId*/,amount);
-            if (aresponse)
-            {
-                BalanceServices bservice = new BalanceServices();
-                bool bresponse = await bservice.CheckBalance(wallet/*.walletId*/, amount);
-                if (bresponse)
-                {
-                    PostgreSqlServices pservice = new PostgreSqlServices();
-                    wallet.Balance -= amount;
-                    pservice.updateValue(wallet);
-                }
-            }
+        PostgreSqlServices _postgreSqlService;
+        BalanceServices _balanceService;
+        AmountServices _amountServices;
+
+        public WalletServices(AmountServices amountServices, PostgreSqlServices postgreSqlServices,BalanceServices balanceServices ) {
+            _amountServices = amountServices;
+            _postgreSqlService = postgreSqlServices;
+            _balanceService = balanceServices;
         }
-        public async void deposit(string walletId, double amount)
-        {
-            PostgreSqlServices pservice = new PostgreSqlServices();
-            Wallet wallet = pservice.getValue(walletId);
-            wallet.Balance += amount;
-            pservice.updateValue(wallet);
-        }
-        public async void transfer(string walletId, double amount, string targetwalletId)
-        {
-            PostgreSqlServices pservice = new PostgreSqlServices();
-            Wallet wallet = pservice.getValue(walletId);
-            Wallet targetWallet = pservice.getValue(targetwalletId);
-            AmountServices aservice = new AmountServices();
-            bool aresponse = await aservice.CheckAmountLimit(wallet/*.walletId*/, amount);
-            if (aresponse)
-            {
-                BalanceServices bservice = new BalanceServices();
-                bool bresponse = await bservice.CheckBalance(wallet/*.walletId*/, amount);
-                if (bresponse)
-                {
-                    wallet.Balance -= amount;
-                    targetWallet.Balance += amount;
-                    pservice.updateValue(wallet);
-                    pservice.updateValue(targetWallet);   
-                }
-            }
-        }
-        public async Task<double> showBalance(string walletId)
-        {
-            PostgreSqlServices pservice = new PostgreSqlServices();
-            Wallet wallet = pservice.getValue(walletId);
-            return wallet.Balance;
-        }
+        //public async void Withdraw(string walletId, double amount)
+        //{
+        //    Wallet wallet = postgreSqlService.getValue(walletId);
+        //    bool aresponse= await amountService.CheckAmountLimit(wallet/*.walletId*/,amount);
+        //    if (aresponse)
+        //    {
+        //        BalanceServices balanceService = new BalanceServices();
+        //        bool bresponse = await balanceService.CheckBalance(wallet/*.walletId*/, amount);
+        //        if (bresponse)
+        //        {
+        //            PostgreSqlServices postgreSqlService = new PostgreSqlServices();
+        //            wallet.Balance -= amount;
+        //            postgreSqlService.updateValue(wallet);
+        //        }
+        //    }
+        //}
+        //public async void deposit(string walletId, double amount)
+        //{
+        //    PostgreSqlServices postgreSqlService = new PostgreSqlServices();
+        //    Wallet wallet = postgreSqlService.getValue(walletId);
+        //    wallet.Balance += amount;
+        //    postgreSqlService.updateValue(wallet);
+        //}
+        //public async void transfer(string walletId, double amount, string targetwalletId)
+        //{
+        //    PostgreSqlServices postgreSqlService = new PostgreSqlServices();
+        //    Wallet wallet = postgreSqlService.getValue(walletId);
+        //    Wallet targetWallet = postgreSqlService.getValue(targetwalletId);
+        //    AmountServices amountService = new AmountServices();
+        //    bool aresponse = await amountService.CheckAmountLimit(wallet/*.walletId*/, amount);
+        //    if (aresponse)
+        //    {
+        //        BalanceServices balanceService = new BalanceServices();
+        //        bool bresponse = await balanceService.CheckBalance(wallet/*.walletId*/, amount);
+        //        if (bresponse)
+        //        {
+        //            wallet.Balance -= amount;
+        //            targetWallet.Balance += amount;
+        //            postgreSqlService.updateValue(wallet);
+        //            postgreSqlService.updateValue(targetWallet);   
+        //        }
+        //    }
+        //}
+        //public async Task<double> showBalance(string walletId)
+        //{
+        //    PostgreSqlServices postgreSqlService = new PostgreSqlServices();
+        //    Wallet wallet = postgreSqlService.getValue(walletId);
+        //    return wallet.Balance;
+        //}
     }
 }
 

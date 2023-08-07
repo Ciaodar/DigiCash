@@ -3,8 +3,10 @@ namespace DigiCash.Services
 {
     public class AmountServices
     {
-        public AmountServices()
+        BalanceServices _balanceServices;
+        public AmountServices(BalanceServices balanceServices)
         {
+            _balanceServices = balanceServices;
         }
     }
 }

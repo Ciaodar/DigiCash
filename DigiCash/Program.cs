@@ -12,6 +12,8 @@ builder.Services.Configure<ConfigSettings>(builder.Configuration.GetSection("App
 
 builder.Services.AddSingleton<AmountServices>();
 builder.Services.AddSingleton<BalanceServices>();
+builder.Services.AddSingleton<WalletServices>();
+builder.Services.AddSingleton<PostgreSqlServices>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

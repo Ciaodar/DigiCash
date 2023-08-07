@@ -12,7 +12,6 @@ namespace DigiCash.Controllers
         WalletServices _walletServices;
 
         public MoneyTransferController(WalletServices walletServices) {
-            Console.WriteLine("hello");
             _walletServices = walletServices;
         }
         [HttpPost]

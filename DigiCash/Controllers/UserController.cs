@@ -18,7 +18,7 @@ namespace DigiCash.Controllers
             signInManager = _signInManager;
         }
 
-        public async Task<IActionResult> SignUp([FromBody] User user)
+        /*public async Task<IActionResult> SignUp([FromBody] User user)
         {
             return Ok();
         }
@@ -31,6 +31,6 @@ namespace DigiCash.Controllers
         public async Task<IActionResult> SignOut([FromBody] User user)
         {
             return Ok();
-        }
+        }*/
     }
 }

@@ -2,11 +2,11 @@
 
 namespace DigiCash.Services
 {
-    public class AmountService
+    public class AmountServices
     {
         private readonly PostgreDbSettings _postgreSettings;
 
-        public AmountService(PostgreDbSettings postgreSettings)
+        public AmountServices(PostgreDbSettings postgreSettings)
         {
             _postgreSettings = postgreSettings;
         }

@@ -3,8 +3,8 @@ namespace DigiCash.Services
 {
     public class BalanceServices
     {
-        public BalanceServices()
-        {
+        public double getBalance() {
+            return 1.0;
         }
     }
 }

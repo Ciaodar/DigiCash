@@ -10,11 +10,6 @@ namespace DigiCash.Services
 
         public WalletServices(AmountServices amountServices, PostgreSqlServices postgreSqlServices,BalanceServices balanceServices ) {
             _amountServices = amountServices;
-<<<<<<< HEAD
-            _postgreSqlService = postgreSqlServices;
-            _balanceService = balanceServices;
-            Console.WriteLine("heloo walletttttt");
-=======
             _postgreSqlServices = postgreSqlServices;
             _balanceServices = balanceServices;
         }
@@ -46,7 +41,6 @@ namespace DigiCash.Services
         public async Task<double> showBalance(string walletId)
         {
             return _balanceServices.getBalance();
->>>>>>> 9f51a7c3115e6b6d74346c30c5529d3f9b8503e1
         }
     }
 }

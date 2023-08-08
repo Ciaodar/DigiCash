@@ -14,6 +14,7 @@ namespace DigiCash.Controllers
         public MoneyTransferController(WalletServices walletServices) {
             _walletServices = walletServices;
         }
+
         [HttpPost]
         public async Task<IActionResult> moneyTransfer([FromBody] Wallet wallet)
         {

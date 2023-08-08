@@ -12,6 +12,7 @@ namespace DigiCash.Services
             _amountServices = amountServices;
             _postgreSqlService = postgreSqlServices;
             _balanceService = balanceServices;
+            Console.WriteLine("heloo walletttttt");
         }
         //public async void Withdraw(string walletId, double amount)
         //{

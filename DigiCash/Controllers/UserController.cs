@@ -6,7 +6,6 @@ namespace DigiCash.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-
     public class UserController : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;

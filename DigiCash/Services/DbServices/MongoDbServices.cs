@@ -13,6 +13,7 @@ namespace DigiCash.Services
 
         public override void getValue(string WalletId)
         {
+            Wallet = 
             //walletid ile kullanıcının geçmiş işlemlerini getireceğiz
         }
 

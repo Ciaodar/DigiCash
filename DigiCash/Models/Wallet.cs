@@ -7,9 +7,10 @@ namespace DigiCash.Models
         public double Balance { get; set; }
         public string Currency { get; set; }
         public DateTime timeAt { get; set; }    
-        public Wallet()
+        public Wallet(String WalletId)
         {
             timeAt = DateTime.Now;
+            this.Id = WalletId;
         }
     }
 }

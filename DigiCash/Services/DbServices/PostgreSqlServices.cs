@@ -21,14 +21,10 @@ namespace DigiCash.Services
             //kullanıcının istediği wallet ı silmesini sağlar
         }
 
-        public override void getValue(string id)
+        public override Object getValue(string obj,string id)
         {
             //kullanıcıyı getirir
-        }
-
-        public override void getValue(Wallet wallet)
-        {
-            //kullanıcının istediği cüzdanı getirir
+            return false;
         }
 
         public override void updateValue(Wallet wallet)

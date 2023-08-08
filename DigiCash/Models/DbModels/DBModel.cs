@@ -11,9 +11,8 @@ namespace DigiCash.Models.DbModels
         public virtual void addValue(ProcessHistory processHistory) { }
         public virtual void deleteValue() { }
         public virtual void deleteValue(string walletId) { }
-        public virtual void getValue() { }
-        public virtual void getValue(string id) { }
-        public virtual void getValue(Wallet wallet) { }
+        public virtual Object getValue() { return false; }
+        public virtual Object getValue(string obj,string id) { return false; }
         public virtual void updateValue() { }
         public virtual void updateValue(Wallet wallet) { }
         public virtual void updateValue(string WalletId, History historyValue) { }

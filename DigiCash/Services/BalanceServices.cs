@@ -12,6 +12,12 @@ namespace DigiCash.Services
         public double getBalance() {
             return _wallet.Balance;
         }
+
+        internal double GetBalance(object walletId)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }
 

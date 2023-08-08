@@ -1,5 +1,6 @@
 ﻿using System;
 using DigiCash.Models;
+using DigiCash.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DigiCash.Controllers
@@ -8,13 +9,21 @@ namespace DigiCash.Controllers
     [Route("[controller]")]
     public class ShowBalanceController : Controller
     {
-        [HttpPost]
-        public async Task<IActionResult> showBalance([FromBody] User user)
-        {
+        private readonly BalanceServices _balanceServices;
 
-            
-            return Ok();
+        public ShowBalanceController(BalanceServices balanceServices)
+        {
+            _balanceServices = balanceServices;
+        }
+
+        [HttpPost]
+        public IActionResult ShowBalance([FromBody] User user)
+        {
+            //  Kullanıcının hesap bakiyesini alın
+            double balance = _balanceServices.GetBalance(user.WalletId); // Bu satırda WalletId'nin gerçek adını kullanmalısınız.
+
+            //  Elde edilen bakiyeyi döndürün
+            return Ok(balance);
         }
     }
 }
-

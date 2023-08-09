@@ -31,34 +31,36 @@ namespace DigiCash.Controllers
             }
 
             // Min-max çekim ayarlarını kontrol edin
-            if (request.Amount < _configSettings.MIN_WITHDRAW_VALUE || request.Amount > _configSettings.MAX_WITHDRAW_VALUE)
+            if (request.Amount >= _configSettings.MIN_WITHDRAW_VALUE && request.Amount <= _configSettings.MAX_WITHDRAW_VALUE)
             {
-                return BadRequest("Çekilecek miktar sınırlar dışında.");
-            }
+                // Para çekme işlemi için veritabanına istek atın
+                bool withdrawalSuccessful = _amountServices.WithdrawMoney(request.WalletId, request.Amount);
 
-            // Para çekme işlemi için veritabanına istek atın
-            bool withdrawalSuccessful = _amountServices.WithdrawMoney(request.WalletId, request.Amount);
-
-            if (withdrawalSuccessful)
-            {
-                // Bakiyeyi güncellemek için AmountServices'ı kullanın
-                bool balanceUpdated = _balanceServices.UpdateBalance(request.WalletId, -request.Amount);
-
-                if (balanceUpdated)
+                if (withdrawalSuccessful)
                 {
-                    return Ok("Para çekme işlemi başarılı.");
+                    // Bakiyeyi güncellemek için AmountServices'ı kullanın
+                    bool balanceUpdated = _balanceServices.UpdateBalance(request.WalletId,
+                                                                         -request.Amount);
+
+                    if (balanceUpdated)
+                    {
+                        return Ok("Para çekme işlemi başarılı.");
+                    }
+                    else
+                    {
+                        // Bakiye güncelleme başarısızsa, işlemi geri alın
+                        _amountServices.DepositMoney(request.WalletId,
+                                                     request.Amount);
+                        return BadRequest("Bakiye güncelleme hatası.");
+                    }
                 }
                 else
                 {
-                    // Bakiye güncelleme başarısızsa, işlemi geri alın
-                    _amountServices.DepositMoney(request.WalletId, request.Amount);
-                    return BadRequest("Bakiye güncelleme hatası.");
+                    return BadRequest("Para çekme işlemi gerçekleştirilemedi.");
                 }
             }
-            else
-            {
-                return BadRequest("Para çekme işlemi gerçekleştirilemedi.");
-            }
+
+            return BadRequest("Çekilecek miktar sınırlar dışında.");
         }
     }
 }

@@ -20,7 +20,7 @@ namespace DigiCash.Controllers
         public IActionResult ShowBalance([FromBody] User user)
         {
             //  Kullanıcının hesap bakiyesini alın
-            double balance = _balanceServices.GetBalance(user.WalletId); // Bu satırda WalletId'nin gerçek adını kullanmalısınız.
+            double balance = _balanceServices.GetBalance(walletId: user.WalletId); // Bu satırda WalletId'nin gerçek adını kullanmalısınız.
 
             //  Elde edilen bakiyeyi döndürün
             return Ok(balance);

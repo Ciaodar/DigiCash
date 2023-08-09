@@ -5,8 +5,9 @@ namespace DigiCash.Models
     {
         public string WalletId { get; set; } 
         public History[] histories { get; set; }
-        public ProcessHistory()
+        public ProcessHistory(Wallet wallet)
         {
+            wallet.walletHistory = this;
         }
     }
 }

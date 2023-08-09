@@ -16,7 +16,7 @@ namespace DigiCash.Services
             _wallet = new Wallet(id);
         }
 
-        public TransactionService(MongoDbServices mongoDbServices , String walletId)
+        public TransactionService(String walletId , MongoDbServices mongoDbServices)
         {
             getWallet(walletId);
             _mongoDbService = mongoDbServices;
@@ -25,8 +25,9 @@ namespace DigiCash.Services
 
         public async void addHistory(ProcessHistory processHistory)
         {
-            if(processHistory == null){
+            if(_wallet.isAtDatabase){ //burada kullanıcının databasede'de var olup olmadığını kontrol etmemiz gerekiyor
                 _mongoDbService.addValue(processHistory);
+                _wallet.isAtDatabase = true;
             }else{
                 _mongoDbService.updateValue(_wallet.Id , processHistory.histories[(processHistory.histories.Length) - 1]);
             }

@@ -35,5 +35,11 @@ namespace DigiCash.Services
 
             return true; // Para çekme başarılıysa true, aksi takdirde false döndürülebilir.
         }
+
+        internal void DepositMoney(object walletId, object amount)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }

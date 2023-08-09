@@ -18,6 +18,10 @@ namespace DigiCash.Services
             throw new NotImplementedException();
         }
 
+        internal bool UpdateBalance(object walletId, object value)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 

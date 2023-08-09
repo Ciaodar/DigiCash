@@ -5,6 +5,8 @@ namespace DigiCash.Models
     {
         public int MAX_WITHDRAW_VALUE { get; }
         public int MAX_TRANSFER_VALUE { get; }
+        public int MIN_WITHDRAW_VALUE { get; internal set; }
+
     }
 }
 

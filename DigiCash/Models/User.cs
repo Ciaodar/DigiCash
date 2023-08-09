@@ -15,5 +15,7 @@ namespace DigiCash.Models
         [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z]).+$", ErrorMessage = "Şifrenizde en az bir büyük ve bir küçük karakter kullanmanız gerekmektedir.")]
 
         public Wallet wallet { get; set; }
+        public object WalletId { get; internal set; }
+
     }
 }

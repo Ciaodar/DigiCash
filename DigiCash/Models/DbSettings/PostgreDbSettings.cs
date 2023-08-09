@@ -3,9 +3,7 @@ namespace DigiCash.Models
 {
     public class PostgreDbSettings
     {
-        public PostgreDbSettings()
-        {
-        }
+        public string ConnectionString { get; set; } = null!;
     }
 }
 

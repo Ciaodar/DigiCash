@@ -12,7 +12,7 @@ namespace DigiCash.Services
         private readonly MongoDbServices _mongoDbServices;
         private Wallet _wallet;
 
-        public TransactionService(String walletId , MongoDbServices mongoDbServices)
+        public TransactionService(MongoDbServices mongoDbServices)
         {
             _mongoDbServices = mongoDbServices;
         }

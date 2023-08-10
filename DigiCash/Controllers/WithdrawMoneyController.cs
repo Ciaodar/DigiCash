@@ -38,9 +38,8 @@ namespace DigiCash.Controllers
 
                 if (withdrawalSuccessful)
                 {
-                    // Bakiyeyi güncellemek için AmountServices'ı kullanın
-                    bool balanceUpdated = _balanceServices.UpdateBalance(request.WalletId,
-                                                                         -request.Amount);
+                    // Bakiyeyi güncellemek için BalanceServices'ı kullanın
+                    bool balanceUpdated = _balanceServices.UpdateBalance(request.WalletId, -request.Amount);
 
                     if (balanceUpdated)
                     {
@@ -49,8 +48,7 @@ namespace DigiCash.Controllers
                     else
                     {
                         // Bakiye güncelleme başarısızsa, işlemi geri alın
-                        _amountServices.DepositMoney(request.WalletId,
-                                                     request.Amount);
+                        _amountServices.DepositMoney(request.WalletId, request.Amount);
                         return BadRequest("Bakiye güncelleme hatası.");
                     }
                 }

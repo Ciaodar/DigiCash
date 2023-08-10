@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DigiCash.Models;
+using System;
 namespace DigiCash.Services.WalletServices
 {
     public class WithdrawServices
@@ -14,7 +15,17 @@ namespace DigiCash.Services.WalletServices
         {
             if (await _amountServices.CheckWithdrawAmount(walletId, amount))
             {
-                return true;
+                try
+                {
+                    Wallet wallet = /*await*/ (Wallet)_postgreSqlServices.getValue("wallet", walletId);
+                    wallet.Balance -= amount;
+                    _postgreSqlServices.updateValue(wallet);
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
             }
             return false;
         }

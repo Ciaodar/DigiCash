@@ -1,5 +1,6 @@
 ﻿using System;
 using DigiCash.Models;
+using DigiCash.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DigiCash.Controllers
@@ -8,10 +9,24 @@ namespace DigiCash.Controllers
     [Route("[controller]")]
     public class TransactionHistoryController : Controller
     {
-        [HttpGet]
-        public async Task<IActionResult> transactionHistory([FromBody] Wallet wallet)
+
+        private readonly TransactionService _transactionService;
+        public TransactionHistoryController(TransactionService transactionService) 
         {
-            return Ok();
+            _transactionService = transactionService;
+        }   
+        [HttpGet]
+        public async Task<IActionResult> transactionHistory([FromBody] ProcessHistory walletId)
+        {
+            try
+            {
+                var histories = await walletId.histories;
+                return Ok(histories);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

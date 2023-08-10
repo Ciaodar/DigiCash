@@ -36,7 +36,7 @@ namespace DigiCash.Services
 
         public async void showHistory(Wallet walletId)
         {
-            _mongoDbServices.getValue(_wallet.Id);
+            _mongoDbServices.getValue("wallet" , _wallet.Id);
         }
     } 
 }

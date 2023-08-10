@@ -1,34 +1,44 @@
 ﻿using DigiCash.Models;
 using System;
+using System.Threading.Tasks;
+
 namespace DigiCash.Services.WalletServices
 {
     public class WithdrawServices
     {
-        AmountServices _amountServices;
-        PostgreSqlServices _postgreSqlServices;
+        private readonly AmountServices _amountServices;
+        private readonly PostgreSqlServices _postgreSqlServices;
+
         public WithdrawServices(AmountServices amountServices, PostgreSqlServices postgreSqlServices)
         {
             _amountServices = amountServices;
             _postgreSqlServices = postgreSqlServices;
         }
-        public async Task<bool> withdraw(string walletId, double amount)
+
+        public async Task<bool> Withdraw(string walletId, double amount)
         {
             if (await _amountServices.CheckWithdrawAmount(walletId, amount))
             {
                 try
                 {
-                    Wallet wallet = /*await*/ (Wallet)_postgreSqlServices.getValue("wallet", walletId);
-                    wallet.Balance -= amount;
-                    _postgreSqlServices.updateValue(wallet);
-                    return true;
+                    Wallet wallet = await _postgreSqlServices.GetValue<Wallet>("wallet", walletId);
+                    if (wallet != null)
+                    {
+                        wallet.Balance -= amount;
+                        bool updateResult = await _postgreSqlServices.UpdateValue(wallet);
+                        return updateResult;
+                    }
+                    else
+                    {
+                        return false; // Cüzdan bulunamadı
+                    }
                 }
                 catch (Exception)
                 {
-                    return false;
+                    return false; // Hata durumunda false döndür
                 }
             }
-            return false;
+            return false; // Çekim miktarı uygun değil
         }
     }
 }
-

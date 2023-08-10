@@ -1,5 +1,5 @@
 ﻿using DigiCash.Models;
-namespace DigiCash.Services
+/*namespace DigiCash.Services
 {
     public class WalletServices
     {
@@ -41,5 +41,5 @@ namespace DigiCash.Services
             return _balanceServices.getBalance();
         }
     }
-}
+}*/
 

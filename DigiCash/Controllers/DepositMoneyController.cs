@@ -1,6 +1,7 @@
 ﻿using System;
 using DigiCash.Models;
 using DigiCash.Services;
+using DigiCash.Services.WalletServices;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DigiCash.Controllers
@@ -9,10 +10,10 @@ namespace DigiCash.Controllers
     [Route("[controller]")]
     public class DepositMoneyController : Controller
     {
-        WalletServices _walletServices;
+        DepositServices _depositServices;
 
-        public DepositMoneyController(WalletServices walletServices) {
-            _walletServices = walletServices;
+        public DepositMoneyController(DepositServices depositServices) {
+            _depositServices = depositServices;
         }
 
         [HttpPost]
@@ -22,7 +23,7 @@ namespace DigiCash.Controllers
                 bool response;
                 if (transaction.amount!=null && transaction.walletId!=null)
                 {
-                    response = await _walletServices.deposit(transaction.walletId, transaction.amount??0); 
+                    response = await _depositServices.deposit(transaction.walletId, transaction.amount??0); 
                 }
                 else
                 {

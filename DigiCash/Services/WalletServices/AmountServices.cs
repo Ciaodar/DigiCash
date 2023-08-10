@@ -1,16 +1,41 @@
 ﻿using DigiCash.Models;
+using ZstdSharp.Unsafe;
 
 namespace DigiCash.Services
 {
     public class AmountServices
     {
-        private readonly PostgreSqlServices _postgreSettings;
-
-        public AmountServices(PostgreSqlServices postgreSettings)
+        public readonly ConfigServices _configServices;
+        public readonly BalanceServices _balanceServices;
+        public AmountServices(ConfigServices configServices, BalanceServices balanceServices)
         {
-            _postgreSettings = postgreSettings;
+            _configServices = configServices;
+            _balanceServices = balanceServices;
+        }
+        public async Task<bool> CheckWithdrawAmount(string walletId, double amount) 
+        {
+            if (amount < _configServices.getMaxWithdraw() && amount < /*await*/ _balanceServices.GetBalance(walletId))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public async Task<bool> CheckTransferAmount(string walletId, double amount)
+        {
+            if (amount < _configServices.getMaxTransfer() && amount < /*await*/ _balanceServices.GetBalance(walletId))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
+        /*
         // Para Transferi
         public bool TransferMoney(string senderWalletId, string receiverWalletId, double amount)
         {
@@ -40,6 +65,6 @@ namespace DigiCash.Services
         {
             throw new NotImplementedException();
         }
-
+        */
     }
 }

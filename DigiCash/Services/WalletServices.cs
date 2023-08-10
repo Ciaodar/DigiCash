@@ -1,5 +1,4 @@
 ﻿using DigiCash.Models;
-using Microsoft.AspNetCore.Mvc;
 namespace DigiCash.Services
 {
     public class WalletServices
@@ -15,8 +14,8 @@ namespace DigiCash.Services
         }
         public async Task<bool> withdraw(string walletId, double amount)
         {
-            bool response =  _amountServices.WithdrawMoney(walletId, amount);
-            if (response) { return true; } else { return false; }
+            return _amountServices.WithdrawMoney(walletId, amount);
+            
         }
         public async Task<bool> deposit(string walletId, double amount)
         {
@@ -32,11 +31,10 @@ namespace DigiCash.Services
                 return false;
             }        
         }
-        public async Task<bool> transfer(string walletId, double amount, string targetwalletId)
+        public async Task<bool> transfer(string walletId, double amount, string targetWalletId)
         {
-            bool response = _amountServices.TransferMoney(walletId,targetwalletId, amount);
-            if (response) { return true; } else { return false; }
-
+            return _amountServices.TransferMoney(walletId,targetWalletId, amount);
+            
         }
         public async Task<double> showBalance(string walletId)
         {

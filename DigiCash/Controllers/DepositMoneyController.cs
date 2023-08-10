@@ -16,9 +16,24 @@ namespace DigiCash.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> depositMoney([FromBody] Wallet wallet) {
-            
-            return Ok();
+        public async Task<IActionResult> DepositMoney([FromBody] TransactionModel transaction) {
+            try
+            {
+                bool response;
+                if (transaction.amount!=null && transaction.walletId!=null)
+                {
+                    response = await _walletServices.deposit(transaction.walletId, transaction.amount??0); 
+                }
+                else
+                {
+                    return BadRequest("You didn't send an ID or an Amount value");
+                }
+                return Ok(response);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500,"Something Went Wrong.");
+            }
         }
     }
 }

@@ -16,8 +16,9 @@ namespace DigiCash.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> moneyTransfer([FromBody] Wallet wallet)
+        public async Task<IActionResult> moneyTransfer([FromBody] TransactionModel transaction)
         {
+
             return Ok();
         }
     }

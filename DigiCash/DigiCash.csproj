@@ -22,11 +22,13 @@
     <None Remove="Models\DbModels\" />
     <None Remove="Models\HistoryModel\" />
     <None Remove="Models\DbSettings\" />
+    <None Remove="Services\WalletServices\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\DbServices\" />
     <Folder Include="Models\DbInterfaces\" />
     <Folder Include="Models\HistoryModel\" />
     <Folder Include="Models\DbSettings\" />
+    <Folder Include="Services\WalletServices\" />
   </ItemGroup>
 </Project>

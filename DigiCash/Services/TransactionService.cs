@@ -38,5 +38,11 @@ namespace DigiCash.Services
         {
             _mongoDbServices.getValue("wallet" , _wallet.Id);
         }
+
+        public ProcessHistory getHistory(String walletId)
+        {
+            Wallet wallet = (Wallet)_mongoDbServices.getValue("wallet", walletId);
+            return new ProcessHistory(wallet);
+        }
     } 
 }

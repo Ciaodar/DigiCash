@@ -25,11 +25,11 @@ namespace DigiCash.Services
        public override Object getValue(string obj , string id)
         {
             return "a";
-           /* Wallet wallet = new Wallet(id);
+            Wallet wallet = new Wallet(id);
             for(int a = 1; a <= wallet.walletHistory.histories.Length; a++)
             {
                 return (Object)wallet.walletHistory.histories[(wallet.walletHistory.histories.Length) - a];
-            }*/
+            }
             //walletid ile kullanıcının geçmiş işlemlerini getireceğiz
         }
 

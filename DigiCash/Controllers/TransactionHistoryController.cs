@@ -20,7 +20,7 @@ namespace DigiCash.Controllers
         {
             try
             {
-                var histories = await walletId.histories;
+                var histories = walletId.histories;
                 return Ok(histories);
             }
             catch (Exception ex)

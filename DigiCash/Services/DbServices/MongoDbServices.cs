@@ -1,10 +1,12 @@
 ﻿using System;
 using DigiCash.Models;
 using DigiCash.Models.DbModels;
+using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace DigiCash.Services
 {
+
     public class MongoDbServices : DBModel
     {
 
@@ -14,32 +16,22 @@ namespace DigiCash.Services
         {
             var client = new MongoClient(connectionString);
             var database = client.GetDatabase(dbName);
-            _collection = database.GetCollection<ProcessHistory>("ProcessHistories");
+            _collection = database.GetCollection<ProcessHistory>("hareketler");
         }
         public async override void addValue(ProcessHistory processHistory)
         {
-            _collection.InsertOne(processHistory);
-            //wallet ilk yapılan işlemi tarihe ekler
+            await _collection.UpdateOneAsync(Builders<ProcessHistory>.Filter.Eq( _ => _.WalletId, processHistory.WalletId),
+                Builders<ProcessHistory>.Update.SetOnInsert( _ => _.WalletId, processHistory.WalletId).
+                    Push("hareketler", processHistory.histories[0]),
+                new UpdateOptions() { IsUpsert = true });
+            return;
         }
 
-       public async override Task<Object> getValue(string obj , string id)
+       public async override Task<Object> getValue(string id)
         {
-            //Wallet wallet = new Wallet(id);
-            //for(int a = 1; a <= wallet.walletHistory.histories.Length; a++)
-            //{
-            //    return (Object)wallet.walletHistory.histories[(wallet.walletHistory.histories.Length) - a];
-            //}
-            return false;
-            //walletid ile kullanıcının geçmiş işlemlerini getireceğiz
-        }
-
-        public async override void updateValue(string WalletId, History historyValue)
-        {
-            var filter = Builders<ProcessHistory>.Filter.Eq("WalletId", WalletId);
-            var update = Builders<ProcessHistory>.Update.Set("History", historyValue);
-
-            _collection.UpdateOne(filter, update);
-            //yapılan işlemi var olan geçmiş dizisine ekler
+            var filter = Builders<ProcessHistory>.Filter
+                .Eq(r => r.WalletId, id);
+            return await _collection.Find(filter).FirstOrDefaultAsync();
         }
     }
 }

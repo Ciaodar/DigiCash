@@ -17,27 +17,37 @@ namespace DigiCash.Services
             _mongoDbServices = mongoDbServices;
         }
 
-        private void getWallet(String id)
+        private async Task<ProcessHistory?> checkHistory(string walletId)
         {
-            _wallet = (Wallet)_mongoDbServices.getValue("wallet", id);
-        }
-
-
-        public async void addHistory(ProcessHistory processHistory)
-        {
-            getWallet(processHistory.WalletId);
-            if(_wallet.isAtDatabase){ //burada kullanıcının databasede'de var olup olmadığını kontrol etmemiz gerekiyor
-                _mongoDbServices.addValue(processHistory);
-                _wallet.isAtDatabase = true;
-            }else{
-                _mongoDbServices.updateValue(_wallet.Id , processHistory.histories[(processHistory.histories.Length) - 1]);
+            try
+            {
+                return await _mongoDbServices.getValue("History", walletId);
+            }
+            catch (Exception)
+            {
+                return null;
             }
         }
 
-        public async void showHistory(Wallet walletId)
+
+        public async void addHistory(string walletId,Process process)
         {
-            _mongoDbServices.getValue("wallet" , _wallet.Id);
+            _mongoDbServices.addValue( new ProcessHistory(walletId,process));
+
+
+
+
+
+            
+                                        /*getWallet(processHistory.WalletId);
+                                        if(_wallet.isAtDatabase){ //burada kullanıcının databasede'de var olup olmadığını kontrol etmemiz gerekiyor
+                                            _mongoDbServices.addValue(processHistory);
+                                            _wallet.isAtDatabase = true;
+                                        }else{
+                                            _mongoDbServices.updateValue(_wallet.Id , processHistory.histories[(processHistory.histories.Length) - 1]);
+                                        }*/
         }
+
 
         public ProcessHistory getHistory(String walletId)
         {

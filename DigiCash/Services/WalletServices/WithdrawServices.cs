@@ -8,11 +8,12 @@ namespace DigiCash.Services.WalletServices
     {
         private readonly AmountServices _amountServices;
         private readonly PostgreSqlServices _postgreSqlServices;
-
-        public WithdrawServices(AmountServices amountServices, PostgreSqlServices postgreSqlServices)
+        private readonly TransactionService _transactionService;    
+        public WithdrawServices(AmountServices amountServices, PostgreSqlServices postgreSqlServices, TransactionService transactionService)
         {
             _amountServices = amountServices;
             _postgreSqlServices = postgreSqlServices;
+            _transactionService = transactionService;
         }
 
         public async Task<bool> withdraw(string walletId, double amount)
@@ -21,11 +22,12 @@ namespace DigiCash.Services.WalletServices
             {
                 try { 
                 
-                    Wallet wallet = await _postgreSqlServices.getValue<Wallet>("wallet", walletId);
+                    Wallet wallet = await (Wallet)_postgreSqlServices.getValue("wallet", walletId);
                     if (wallet != null)
                     {
                         wallet.Balance -= amount;
                         bool updateResult = await _postgreSqlServices.UpdateValue(wallet);
+                        _transactionService.addHistory(walletId, new Process("Withdraw", wallet.Balance + amount, wallet.Balance, null));
                         return updateResult;
                     }
                     else

@@ -21,7 +21,7 @@ namespace DigiCash.Services
             //kullanıcının istediği wallet ı silmesini sağlar
         }
 
-        public override Task<object> getValue(string obj, string id)
+        public override Task<Object> getValue(string obj, string id)
         {
             return base.getValue(obj, id);
         }

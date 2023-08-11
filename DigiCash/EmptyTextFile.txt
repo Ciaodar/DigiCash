@@ -3,6 +3,8 @@
 
 Transaction services
 
+fonksyon isimleri ve async yapıları
+
 Postgre veritabanı işlemleri
 
 Mongodb veritabanı işlemleri

@@ -17,13 +17,23 @@ namespace DigiCash.Controllers
         }
 
         [HttpPost]
-        public IActionResult ShowBalance([FromBody] User user)
+        public async Task<IActionResult> ShowBalance([FromBody] TransactionModel transaction)
         {
-            //  Kullanıcının hesap bakiyesini alın
-            double balance = _balanceServices.GetBalance(walletId: user.WalletId); // Bu satırda WalletId'nin gerçek adını kullanmalısınız.
+            try
+            {
+                if (transaction.walletId != null)
+                {
+                    double balance = await _balanceServices.getBalanceAsync(transaction.walletId);
 
-            //  Elde edilen bakiyeyi döndürün
-            return Ok(balance);
+                }
+                else
+                {
+                    return BadRequest("You didn't send walletId!");
+                }
+                return Ok();
+            }catch(Exception) {
+                return StatusCode(500, "Something was gone wrong!");
+            }
         }
     }
 }

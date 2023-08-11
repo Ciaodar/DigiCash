@@ -15,12 +15,12 @@ namespace DigiCash.Services.WalletServices
             _postgreSqlServices = postgreSqlServices;
         }
 
-        public async Task<bool> Withdraw(string walletId, double amount)
+        public async Task<bool> withdraw(string walletId, double amount)
         {
             if (await _amountServices.CheckWithdrawAmount(walletId, amount))
             {
-                try
-                {
+                try { 
+                
                     Wallet wallet = await _postgreSqlServices.GetValue<Wallet>("wallet", walletId);
                     if (wallet != null)
                     {

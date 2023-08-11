@@ -16,10 +16,7 @@ namespace DigiCash.Services
         }
         public async Task<bool> CheckWithdrawAmount(string walletId, double amount) 
         {
-            if (
-                amount < _configServices.getMaxWithdraw() && 
-                amount < /*await*/ _balanceServices.GetBalance(walletId) && 
-                (_transactionServices.getHistory(walletId) + amount) < _configServices.getMaxWithdraw())
+            if (amount < _configServices.getMaxWithdraw() && amount < await _balanceServices.getBalanceAsync(walletId) && _transactionServices.showHistory(walletId))
             {
                 return true;
             }
@@ -30,11 +27,7 @@ namespace DigiCash.Services
         }
         public async Task<bool> CheckTransferAmount(string walletId, double amount)
         {
-            if (
-                amount < _configServices.getMaxTransfer() && 
-                amount < /*await*/ _balanceServices.GetBalance(walletId) && 
-                (_transactionServices.getHistory(walletId) + amount) < _configServices.getMaxWithdraw()
-                )
+            if (amount < _configServices.getMaxTransfer() && amount < await _balanceServices.getBalanceAsync(walletId) && _transactionServices.showHistory(walletId))
             {
                 return true;
             }

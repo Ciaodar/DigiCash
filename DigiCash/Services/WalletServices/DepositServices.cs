@@ -6,10 +6,12 @@ namespace DigiCash.Services.WalletServices
     public class DepositServices
     {
         PostgreSqlServices _postgreSqlServices;
+
         public DepositServices(PostgreSqlServices postgreSqlServices)
         {
             _postgreSqlServices = postgreSqlServices;
         }
+
         public async Task<bool> deposit(string walletId, double amount)
         {
             Wallet wallet = (Wallet)_postgreSqlServices.getValue("wallet", walletId);

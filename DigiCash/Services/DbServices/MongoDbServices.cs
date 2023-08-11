@@ -16,24 +16,24 @@ namespace DigiCash.Services
             var database = client.GetDatabase(dbName);
             _collection = database.GetCollection<ProcessHistory>("ProcessHistories");
         }
-        public override void addValue(ProcessHistory processHistory)
+        public async override void addValue(ProcessHistory processHistory)
         {
             _collection.InsertOne(processHistory);
             //wallet ilk yapılan işlemi tarihe ekler
         }
 
-       public override Object getValue(string obj , string id)
+       public async override Task<Object> getValue(string obj , string id)
         {
-            return "a";
-            Wallet wallet = new Wallet(id);
-            for(int a = 1; a <= wallet.walletHistory.histories.Length; a++)
-            {
-                return (Object)wallet.walletHistory.histories[(wallet.walletHistory.histories.Length) - a];
-            }
+            //Wallet wallet = new Wallet(id);
+            //for(int a = 1; a <= wallet.walletHistory.histories.Length; a++)
+            //{
+            //    return (Object)wallet.walletHistory.histories[(wallet.walletHistory.histories.Length) - a];
+            //}
+            return false;
             //walletid ile kullanıcının geçmiş işlemlerini getireceğiz
         }
 
-        public override void updateValue(string WalletId, History historyValue)
+        public async override void updateValue(string WalletId, History historyValue)
         {
             var filter = Builders<ProcessHistory>.Filter.Eq("WalletId", WalletId);
             var update = Builders<ProcessHistory>.Update.Set("History", historyValue);

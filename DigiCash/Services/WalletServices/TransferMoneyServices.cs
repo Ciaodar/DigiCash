@@ -8,6 +8,7 @@ namespace DigiCash.Services.WalletServices
     {
         PostgreSqlServices _postgreSqlServices;
         AmountServices _amountServices;
+
         public TransferMoneyServices(PostgreSqlServices postgreSqlServices , AmountServices amountServices)
         {
             _amountServices = amountServices;

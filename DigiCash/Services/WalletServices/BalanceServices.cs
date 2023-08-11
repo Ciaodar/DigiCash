@@ -5,20 +5,15 @@ namespace DigiCash.Services
     public class BalanceServices
     {
         Wallet _wallet;
+
         public void getWallet(String walletId)
         {
             _wallet = new Wallet(walletId);
         }
-        public double getBalance() {
-            return _wallet.Balance;
+        public async Task<double> getBalanceAsync(string walletId) {
+            return 1;
         }
-
-        internal double GetBalance(object walletId)
-        {
-            throw new NotImplementedException();
-        }
-
-        internal bool UpdateBalance(object walletId, object value)
+        public bool updateBalance(object walletId, object value)
         {
             throw new NotImplementedException();
         }

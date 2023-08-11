@@ -4,7 +4,7 @@ namespace DigiCash.Models
     public interface IDbService
     {
         void addValue();
-        Object getValue();
+        Task<Object> getValue();
         void updateValue();
         void deleteValue();
     }

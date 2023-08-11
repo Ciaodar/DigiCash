@@ -1,5 +1,5 @@
 ﻿using DigiCash.Models;
-using DigiCash.Services;
+using DigiCash.Services.WalletServices;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DigiCash.Controllers
@@ -8,57 +8,32 @@ namespace DigiCash.Controllers
     [Route("[controller]")]
     public class WithdrawMoneyController : Controller
     {
-        private readonly BalanceServices _balanceServices;
-        private readonly AmountServices _amountServices;
-        private readonly ConfigSettings _configSettings;
-
-        public WithdrawMoneyController(BalanceServices balanceServices, AmountServices amountServices, ConfigSettings configSettings)
+        WithdrawServices _withdrawServices;
+        public WithdrawMoneyController(WithdrawServices withdrawServices)
         {
-            _balanceServices = balanceServices;
-            _amountServices = amountServices;
-            _configSettings = configSettings;
+            _withdrawServices = withdrawServices;
         }
 
         [HttpPut]
-        public IActionResult WithdrawMoney([FromBody] WithdrawRequest request)
+        public async Task<IActionResult> WithdrawMoney([FromBody] TransactionModel transaction)
         {
-            // İlk olarak hesap bakiyesini kontrol edin
-            double currentBalance = _balanceServices.GetBalance(request.WalletId);
-
-            if (currentBalance < request.Amount)
+            try
             {
-                return BadRequest("Hesap bakiyesi yetersiz.");
-            }
-
-            // Min-max çekim ayarlarını kontrol edin
-            if (request.Amount >= _configSettings.MIN_WITHDRAW_VALUE && request.Amount <= _configSettings.MAX_WITHDRAW_VALUE)
-            {
-                // Para çekme işlemi için veritabanına istek atın
-                bool withdrawalSuccessful = _amountServices.WithdrawMoney(request.WalletId, request.Amount);
-
-                if (withdrawalSuccessful)
+                bool response;
+                if (transaction.amount != null && transaction.walletId != null)
                 {
-                    // Bakiyeyi güncellemek için BalanceServices'ı kullanın
-                    bool balanceUpdated = _balanceServices.UpdateBalance(request.WalletId, -request.Amount);
-
-                    if (balanceUpdated)
-                    {
-                        return Ok("Para çekme işlemi başarılı.");
-                    }
-                    else
-                    {
-                        // Bakiye güncelleme başarısızsa, işlemi geri alın
-                        _amountServices.DepositMoney(request.WalletId, request.Amount);
-                        return BadRequest("Bakiye güncelleme hatası.");
-                    }
+                    response = await _withdrawServices.withdraw(transaction.walletId, transaction.amount ?? 0);
                 }
                 else
                 {
-                    return BadRequest("Para çekme işlemi gerçekleştirilemedi.");
+                    return BadRequest("You didn't send an ID or an Amount value");
                 }
+                return Ok(response);
             }
-
-            return BadRequest("Çekilecek miktar sınırlar dışında.");
+            catch (Exception)
+            {
+                return StatusCode(500, "Something Went Wrong.");
+            }
         }
     }
 }

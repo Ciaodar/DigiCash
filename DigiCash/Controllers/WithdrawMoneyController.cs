@@ -15,14 +15,14 @@ namespace DigiCash.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> WithdrawMoney([FromBody] TransactionModel transaction)
+        public async Task<IActionResult> WithdrawMoney([FromBody] RequestModel request)
         {
             try
             {
                 bool response;
-                if (transaction.amount != null && transaction.walletId != null)
+                if (request.amount != null && request.walletId != null)
                 {
-                    response = await _withdrawServices.withdraw(transaction.walletId, transaction.amount ?? 0);
+                    response = await _withdrawServices.withdraw(request.walletId, request.amount ?? 0);
                 }
                 else
                 {

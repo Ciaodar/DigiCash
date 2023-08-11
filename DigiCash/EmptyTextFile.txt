@@ -1,0 +1,14 @@
+﻿
+
+
+Transaction services
+
+Postgre veritabanı işlemleri
+
+Mongodb veritabanı işlemleri
+
+User modelin düzenlenmesi
+User service
+User controller
+User kayıttan sonra veya talep halinde yeni cüzdan oluşturulması
+

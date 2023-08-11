@@ -15,12 +15,12 @@ namespace DigiCash.Controllers
         {
             _transactionService = transactionService;
         }   
-        [HttpGet]
-        public async Task<IActionResult> transactionHistory([FromBody] ProcessHistory walletId)
+        [HttpGet("route/api")]
+        public async Task<IActionResult> transactionHistory([FromBody] RequestModel request)
         {
             try
             {
-                var histories = walletId.histories;
+                var histories = _transactionService.getHistory(request.walletId);
                 return Ok(histories);
             }
             catch (Exception ex)

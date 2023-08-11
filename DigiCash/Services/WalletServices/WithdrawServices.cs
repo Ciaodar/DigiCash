@@ -21,7 +21,7 @@ namespace DigiCash.Services.WalletServices
             {
                 try { 
                 
-                    Wallet wallet = await _postgreSqlServices.GetValue<Wallet>("wallet", walletId);
+                    Wallet wallet = await _postgreSqlServices.getValue<Wallet>("wallet", walletId);
                     if (wallet != null)
                     {
                         wallet.Balance -= amount;

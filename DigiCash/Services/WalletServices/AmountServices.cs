@@ -1,5 +1,4 @@
 ﻿using DigiCash.Models;
-using ZstdSharp.Unsafe;
 
 namespace DigiCash.Services
 {
@@ -14,9 +13,12 @@ namespace DigiCash.Services
             _balanceServices = balanceServices;
             _transactionServices = transactionServices;
         }
-        public async Task<bool> CheckWithdrawAmount(string walletId, double amount) 
+        public async Task<bool> CheckWithdrawAmount(string walletId, double amount)
         {
-            if (amount < _configServices.getMaxWithdraw() && amount < await _balanceServices.getBalanceAsync(walletId) && _transactionServices.showHistory(walletId))
+            if (
+                amount < _configServices.getMaxWithdraw() &&
+                amount < /*await*/ _balanceServices.GetBalance(walletId) &&
+                (_transactionServices.getHistory(walletId) + amount) < _configServices.getMaxWithdraw())
             {
                 return true;
             }
@@ -27,7 +29,11 @@ namespace DigiCash.Services
         }
         public async Task<bool> CheckTransferAmount(string walletId, double amount)
         {
-            if (amount < _configServices.getMaxTransfer() && amount < await _balanceServices.getBalanceAsync(walletId) && _transactionServices.showHistory(walletId))
+            if (
+                amount < _configServices.getMaxTransfer() &&
+                amount < /*await*/ _balanceServices.GetBalance(walletId) &&
+                (_transactionServices.getHistory(walletId) + amount) < _configServices.getMaxWithdraw()
+                )
             {
                 return true;
             }
@@ -36,37 +42,5 @@ namespace DigiCash.Services
                 return false;
             }
         }
-
-        /*
-        // Para Transferi
-        public bool TransferMoney(string senderWalletId, string receiverWalletId, double amount)
-        {
-            // TODO: Para transferi işlemleri burada gerçekleştirilecek
-            // - Gönderen hesaptan para düşülmesi
-            // - Alıcı hesaba para eklenmesi
-            // - İşlem geçmişi kaydedilmesi
-            // - Hata durumlarının yönetimi
-            // - ...
-
-            return true; // Transfer başarılıysa true, aksi takdirde false döndürülebilir.
-        }
-
-        // Para Çekme
-        public bool WithdrawMoney(string walletId, double amount)
-        {
-            // TODO: Para çekme işlemleri burada gerçekleştirilecek
-            // - Para çekme işlemi
-            // - İşlem geçmişi kaydedilmesi
-            // - Hata durumlarının yönetimi
-            // - ...eklencek birşey varsa buraya
-
-            return true; // Para çekme başarılıysa true, aksi takdirde false döndürülebilir.
-        }
-
-        internal void DepositMoney(object walletId, object amount)
-        {
-            throw new NotImplementedException();
-        }
-        */
     }
 }

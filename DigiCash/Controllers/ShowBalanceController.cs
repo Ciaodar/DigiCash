@@ -16,21 +16,21 @@ namespace DigiCash.Controllers
             _balanceServices = balanceServices;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> ShowBalance([FromBody] TransactionModel transaction)
+        [HttpGet]
+        public async Task<IActionResult> ShowBalance([FromBody] RequestModel request)
         {
+            double balance;
             try
             {
-                if (transaction.walletId != null)
+                if (request.walletId != null)
                 {
-                    double balance = await _balanceServices.getBalanceAsync(transaction.walletId);
-
+                    balance = await _balanceServices.getBalanceAsync(request.walletId);
                 }
                 else
                 {
                     return BadRequest("You didn't send walletId!");
                 }
-                return Ok();
+                return Ok(balance);
             }catch(Exception) {
                 return StatusCode(500, "Something was gone wrong!");
             }

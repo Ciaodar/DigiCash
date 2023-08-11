@@ -1,7 +1,7 @@
 ﻿namespace DigiCash.Models
 {
     
-    public class TransactionModel
+    public class RequestModel
     {
         public string? userId { get; set; }
         public string? walletId { get; set; }

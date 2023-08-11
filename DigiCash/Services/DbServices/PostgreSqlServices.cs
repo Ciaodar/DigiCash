@@ -8,7 +8,7 @@ namespace DigiCash.Services
     {
         public override void addValue(User user)
         {
-            //yeni bir kullanıcı oluşturur
+
         }
 
         public override void addValue(string userId, Wallet wallet)
@@ -21,10 +21,9 @@ namespace DigiCash.Services
             //kullanıcının istediği wallet ı silmesini sağlar
         }
 
-        public override Object getValue(string obj,string id)
+        public override Task<object> getValue(string obj, string id)
         {
-            //kullanıcıyı getirir
-            return false;
+            return base.getValue(obj, id);
         }
 
         public override void updateValue(Wallet wallet)

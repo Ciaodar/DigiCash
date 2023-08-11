@@ -11,6 +11,7 @@ namespace DigiCash.Services
             _wallet = new Wallet(walletId);
         }
         public async Task<double> getBalanceAsync(string walletId) {
+            //postgre
             return 1;
         }
         public bool updateBalance(object walletId, object value)

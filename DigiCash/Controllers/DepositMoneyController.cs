@@ -17,13 +17,13 @@ namespace DigiCash.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> DepositMoney([FromBody] TransactionModel transaction) {
+        public async Task<IActionResult> DepositMoney([FromBody] RequestModel request) {
             try
             {
                 bool response;
-                if (transaction.amount!=null && transaction.walletId!=null)
+                if (request.amount!=null && request.walletId!=null)
                 {
-                    response = await _depositServices.deposit(transaction.walletId, transaction.amount??0); 
+                    response = await _depositServices.deposit(request.walletId, request.amount??0); 
                 }
                 else
                 {

@@ -6,7 +6,7 @@ namespace DigiCash.Services.WalletServices
 {
     public class TransferMoneyServices
     {
-        PostgreSqlServices _postgreSqlServices;
+        /*PostgreSqlServices _postgreSqlServices;
         AmountServices _amountServices;
 
         public TransferMoneyServices(PostgreSqlServices postgreSqlServices , AmountServices amountServices)
@@ -34,7 +34,7 @@ namespace DigiCash.Services.WalletServices
                 }
             }
             return false;
-        }
+        }*/
     }
 }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using DigiCash.Models;
 using DigiCash.Models.DbModels;
+using Microsoft.Extensions.Options;
 using MongoDB.Bson;
 using MongoDB.Driver;
 
@@ -12,11 +13,11 @@ namespace DigiCash.Services
 
         private readonly IMongoCollection<ProcessHistory> _collection;
 
-        public MongoDbServices(string connectionString , string dbName)
+        public MongoDbServices(IOptions<MongoDbSettings> mongoDbSettings)
         {
-            var client = new MongoClient(connectionString);
-            var database = client.GetDatabase(dbName);
-            _collection = database.GetCollection<ProcessHistory>("hareketler");
+            var client = new MongoClient(mongoDbSettings.Value.ConnectionURI);
+            var database = client.GetDatabase(mongoDbSettings.Value.DatabaseName);
+            _collection = database.GetCollection<ProcessHistory>(mongoDbSettings.Value.CollectionName);
         }
         public async override void addValue(ProcessHistory processHistory)
         {

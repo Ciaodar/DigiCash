@@ -8,7 +8,7 @@ namespace DigiCash.Services
 
         public void getWallet(String walletId)
         {
-            _wallet = new Wallet(walletId);
+            //_wallet = new Wallet(walletId);
         }
         public async Task<double> getBalanceAsync(string walletId) {
             //postgre

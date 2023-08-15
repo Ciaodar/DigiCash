@@ -6,7 +6,7 @@ namespace DigiCash.Services.WalletServices
 {
     public class WithdrawServices
     {
-        private readonly AmountServices _amountServices;
+        /*private readonly AmountServices _amountServices;
         private readonly PostgreSqlServices _postgreSqlServices;
         private readonly TransactionService _transactionService;    
         public WithdrawServices(AmountServices amountServices, PostgreSqlServices postgreSqlServices, TransactionService transactionService)
@@ -41,6 +41,6 @@ namespace DigiCash.Services.WalletServices
                 }
             }
             return false; // Çekim miktarı uygun değil
-        }
+        }*/
     }
 }

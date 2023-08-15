@@ -4,7 +4,7 @@ namespace DigiCash.Services
 {
     public class AmountServices
     {
-        public readonly ConfigServices _configServices;
+        /*public readonly ConfigServices _configServices;
         public readonly BalanceServices _balanceServices;
         public readonly TransactionService _transactionServices;
         public AmountServices(ConfigServices configServices, BalanceServices balanceServices, TransactionService transactionServices)
@@ -17,7 +17,7 @@ namespace DigiCash.Services
         {
             if (
                 amount < _configServices.getMaxWithdraw() &&
-                amount < /*await*/ _balanceServices.GetBalance(walletId) &&
+                amount < /*await_balanceServices.GetBalance(walletId) &&
                 (_transactionServices.getHistory(walletId) + amount) < _configServices.getMaxWithdraw())
             {
                 return true;
@@ -31,7 +31,7 @@ namespace DigiCash.Services
         {
             if (
                 amount < _configServices.getMaxTransfer() &&
-                amount < /*await*/ _balanceServices.GetBalance(walletId) &&
+                amount < await _balanceServices.GetBalance(walletId) &&
                 (_transactionServices.getHistory(walletId) + amount) < _configServices.getMaxWithdraw()
                 )
             {
@@ -41,6 +41,6 @@ namespace DigiCash.Services
             {
                 return false;
             }
-        }
+        }*/
     }
 }

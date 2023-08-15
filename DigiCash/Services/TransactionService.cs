@@ -9,7 +9,7 @@ namespace DigiCash.Services
 {
     public class TransactionService
     {
-        private readonly MongoDbServices _mongoDbServices;
+       /* private readonly MongoDbServices _mongoDbServices;
         private Wallet _wallet;
 
         public TransactionService(MongoDbServices mongoDbServices)
@@ -19,14 +19,16 @@ namespace DigiCash.Services
 
         private async Task<ProcessHistory?> checkHistory(string walletId)
         {
-            try
-            {
-                return await _mongoDbServices.getValue("History", walletId);
-            }
-            catch (Exception)
-            {
-                return null;
-            }
+            /* try
+             {
+                 //return await _mongoDbServices.getValue("History", walletId);
+                 return new ProcessHistory(");
+             }
+             catch (Exception)
+             {
+                 return null;
+             }
+            return null;
         }
 
 
@@ -45,7 +47,7 @@ namespace DigiCash.Services
                                             _wallet.isAtDatabase = true;
                                         }else{
                                             _mongoDbServices.updateValue(_wallet.Id , processHistory.histories[(processHistory.histories.Length) - 1]);
-                                        }*/
+                                        }
         }
 
 
@@ -53,6 +55,6 @@ namespace DigiCash.Services
         {
             Wallet wallet = (Wallet)_mongoDbServices.getValue("wallet", walletId);
             return new ProcessHistory(wallet);
-        }
+        }*/
     } 
 }

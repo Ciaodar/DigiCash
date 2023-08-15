@@ -23,17 +23,17 @@ namespace DigiCash.Controllers
                 bool response;
                 if (request.amount!=null && request.walletId!=null)
                 {
-                    response = await _depositServices.deposit(request.walletId, request.amount??0); 
+                    response = await _depositServices.deposit(request.walletId, request.amount??0);
                 }
                 else
                 {
                     return BadRequest("You didn't send an ID or an Amount value");
                 }
-                return Ok(response);
+                return Ok();
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return StatusCode(500,"Something Went Wrong.");
+                return StatusCode(500,e);
             }
         }
     }

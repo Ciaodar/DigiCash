@@ -17,7 +17,7 @@ namespace DigiCash.Controllers
         [HttpPut]
         public async Task<IActionResult> WithdrawMoney([FromBody] RequestModel request)
         {
-            try
+            /*try
             {
                 bool response;
                 if (request.amount != null && request.walletId != null)
@@ -33,7 +33,8 @@ namespace DigiCash.Controllers
             catch (Exception)
             {
                 return StatusCode(500, "Something Went Wrong.");
-            }
+            }*/
+            return null;
         }
     }
 }

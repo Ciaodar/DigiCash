@@ -18,15 +18,16 @@ namespace DigiCash.Controllers
         [HttpGet("route/api")]
         public async Task<IActionResult> transactionHistory([FromBody] RequestModel request)
         {
-            try
+            /*try
             {
-                var histories = _transactionService.getHistory(request.walletId);
+                var histories = null;//_transactionService.getHistory(request.walletId);
                 return Ok(histories);
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
-            }
+            }*/
+            return null;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using DigiCash.Models;
 
 namespace DigiCash.Models.DbModels
@@ -13,9 +14,9 @@ namespace DigiCash.Models.DbModels
         public async virtual void deleteValue(string walletId) { }
         public async virtual Task<Object> getValue() { return false; }
         public async virtual Task<Object> getValue(string id) { return false; }
-        public async virtual Task<Object> getValue(string obj,string id) { return false; }
+        public async virtual Task<DataTable> getValue(string obj,string id) { return null; }
         public async virtual void updateValue() { }
-        public async virtual void updateValue(Wallet wallet) { }
+        public async virtual void updateValue(DataRow wallet) { }
         public async virtual void updateValue(string WalletId, Process historyValue) { }
     }
 }

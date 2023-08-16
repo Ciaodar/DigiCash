@@ -17,6 +17,11 @@ namespace DigiCash.Services
 
         public int getMaxTransfer() => MAX_TRANSFER_VALUE;
         public int getMaxWithdraw() => MAX_WITHDRAW_VALUE;
+
+        internal double GetMaxWithdraw()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 

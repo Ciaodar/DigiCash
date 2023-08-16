@@ -24,16 +24,19 @@ namespace DigiCash.Controllers
             {
                 if (request.walletId != null)
                 {
-                    balance = await _balanceServices.getBalanceAsync(request.walletId);
+                    balance = await _balanceServices.GetBalanceAsync(request.walletId);
+                    return Ok(balance);
                 }
                 else
                 {
-                    return BadRequest("You didn't send walletId!");
+                    return BadRequest("WalletId gönderilmedi");
                 }
-                return Ok(balance);
-            }catch(Exception) {
-                return StatusCode(500, "Something was gone wrong!");
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "hata");
             }
         }
+
     }
 }

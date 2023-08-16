@@ -17,7 +17,7 @@ namespace DigiCash.Services
             _logger = logger;
             _postgreSqlServices = postgreSqlServices;
         }
-        public async Task<User> CreateUser(String tc , String firstName , String lastName , String password)
+        public async Task<bool> CreateUser(String tc , String firstName , String lastName , String password)
         {
             User user = new User
             {
@@ -26,9 +26,10 @@ namespace DigiCash.Services
                 password = password,
                 tc = tc
             };
-            return user;
+            AddUserToDb(user);
+            return true;
         }
-        public async Task<bool> addUserToDb(User user)
+        public async Task<bool> AddUserToDb(User user)
         {
             var result = await _userManager.CreateAsync(user);
             if (result.Succeeded)
@@ -44,6 +45,29 @@ namespace DigiCash.Services
                 return false;
             }
         }
-    }//JWT Generatorler eklenicek
+
+        public async Task<IdentityUser> GetOneUser(string tc)
+        {
+            /*var user = await _userManager.FindByIdAsync(tc);
+             if (user != null)
+                 return user;
+             throw new Exception("Kullanici bulunamadi.");*/
+
+            //CS0029 Hatası var.
+            throw new NotImplementedException();
+        }
+
+        public async Task<IdentityResult> ResetPassword(User user)
+        {
+            await _userManager.RemovePasswordAsync(user);
+            var result = await _userManager.AddPasswordAsync(user, user.password);
+            return result;
+        }
+        public async Task<IdentityResult> DeleteOneUser(User user)
+        {
+            return await _userManager.DeleteAsync(user);
+        }
+
+    }
 }
 

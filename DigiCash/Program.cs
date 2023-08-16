@@ -1,6 +1,9 @@
 ﻿using DigiCash.Models;
 using DigiCash.Services;
 using DigiCash.Services.WalletServices;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +23,23 @@ builder.Services.AddSingleton<DepositServices>();
 //builder.Services.AddSingleton<WithdrawServices>();
 //builder.Services.AddSingleton<TransferMoneyServices>();
 builder.Services.AddSingleton<PostgreSqlServices>();
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+     {
+         options.TokenValidationParameters = new TokenValidationParameters
+         {
+             ValidateIssuer = true,
+             ValidateAudience = true,
+             ValidateLifetime = true,
+             ValidateIssuerSigningKey = true,
+             ValidIssuer = builder.Configuration["Jwt:Issuer"],
+             ValidAudience = builder.Configuration["Jwt:Audience"],
+             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"] ?? string.Empty))
+         };
+     });
+
+builder.Services.Configure<JwtModel>(builder.Configuration.GetSection("Jwt"));
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

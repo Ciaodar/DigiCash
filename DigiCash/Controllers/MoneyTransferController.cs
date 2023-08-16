@@ -23,7 +23,7 @@ namespace DigiCash.Controllers
                 bool response;
                 if (request.amount != null && request.walletId != null&& request.targetWalletId != null)
                 {
-                    //response = await _transferMoney.transferMoney(request.walletId,request.targetWalletId,request.amount ?? 0);
+                    response = await _transferMoney.transferMoney(request.walletId,request.targetWalletId,request.amount ?? 0);
                 }
                 else
                 {

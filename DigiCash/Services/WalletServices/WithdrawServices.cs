@@ -1,12 +1,13 @@
 ﻿using DigiCash.Models;
 using System;
+using System.Data;
 using System.Threading.Tasks;
 
 namespace DigiCash.Services.WalletServices
 {
     public class WithdrawServices
     {
-        /*private readonly AmountServices _amountServices;
+        private readonly AmountServices _amountServices;
         private readonly PostgreSqlServices _postgreSqlServices;
         private readonly TransactionService _transactionService;    
         public WithdrawServices(AmountServices amountServices, PostgreSqlServices postgreSqlServices, TransactionService transactionService)
@@ -22,13 +23,16 @@ namespace DigiCash.Services.WalletServices
             {
                 try { 
                 
-                    Wallet wallet = await (Wallet)_postgreSqlServices.getValue("wallet", walletId);
+                    DataTable dataTable = await _postgreSqlServices.getValue("wallet", walletId);
+                    DataRow wallet = dataTable.Rows[0];
+                    double _balance = (double)wallet["Balance"];
                     if (wallet != null)
                     {
-                        wallet.Balance -= amount;
-                        bool updateResult = await _postgreSqlServices.UpdateValue(wallet);
-                        _transactionService.addHistory(walletId, new Process("Withdraw", wallet.Balance + amount, wallet.Balance, null));
-                        return updateResult;
+                        _balance -= amount;
+                        wallet["Balance"] = _balance;
+                        _postgreSqlServices.updateValue(wallet);
+                        _transactionService.addHistory(walletId, new Process("Withdraw", _balance + amount, _balance, null));
+                        return true;
                     }
                     else
                     {
@@ -41,6 +45,6 @@ namespace DigiCash.Services.WalletServices
                 }
             }
             return false; // Çekim miktarı uygun değil
-        }*/
+        }
     }
 }

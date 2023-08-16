@@ -39,7 +39,7 @@ namespace DigiCash.Services
             await using (connection)
             {
                 Console.WriteLine("ben çalıştım");
-                connection.OpenAsync();
+                await connection.OpenAsync();
 
                 using (NpgsqlCommand command = new NpgsqlCommand(query, connection))
                 {

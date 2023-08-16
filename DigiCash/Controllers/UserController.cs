@@ -41,7 +41,7 @@ namespace DigiCash.Controllers
             }
         }
 
-        [HttpPost("signin")]
+        //AuthenticationController'a aktardım , burasının düzeltimesi gerekiyor (JWT)
         public async Task<IActionResult> SignIn([FromBody] User user)
         {
             var signInResult = await _signInManager.PasswordSignInAsync(user.tc, user.password, isPersistent: false, lockoutOnFailure: false);

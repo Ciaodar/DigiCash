@@ -46,15 +46,12 @@ namespace DigiCash.Services
             }
         }
 
-        public async Task<IdentityUser> GetOneUser(string tc)
+        public async Task<User> GetOneUser(string TcKimlikNo)
         {
-            /*var user = await _userManager.FindByIdAsync(tc);
+            var user = await _userManager.FindByIdAsync(TcKimlikNo);
              if (user != null)
                  return user;
-             throw new Exception("Kullanici bulunamadi.");*/
-
-            //CS0029 Hatası var.
-            throw new NotImplementedException();
+             throw new Exception("Kullanici bulunamadi.");
         }
 
         public async Task<IdentityResult> ResetPassword(User user)

@@ -41,23 +41,8 @@ namespace DigiCash.Controllers
             }
         }
 
-        //AuthenticationController'a aktardım , burasının düzeltimesi gerekiyor (JWT)
-       /* public async Task<IActionResult> SignIn([FromBody] User user)
-        {
-            var signInResult = await _signInManager.PasswordSignInAsync(user.tc, user.password, isPersistent: false, lockoutOnFailure: false);
-
-            if (signInResult.Succeeded)
-            {
-                return Ok(new { message = "Basariyla giris yapildi." });
-            }
-            else
-            {
-                return Unauthorized(new { message = "Yanlis bilgiler girildi." });
-            }
-        }*/
-
         [HttpPost("signout")]
-        public async Task<IActionResult> SignOut()
+        public async Task<IActionResult> SignOutFunc()
         {
             await _signInManager.SignOutAsync();
 
@@ -65,7 +50,7 @@ namespace DigiCash.Controllers
         }
 
         [HttpDelete("delete")]
-        public async Task<IActionResult> DeleteUser()
+        public async Task<IActionResult> DeleteUser(User user)
         {
             var currentUser = await _userManager.GetUserAsync(User);
             if (currentUser == null)
@@ -73,7 +58,7 @@ namespace DigiCash.Controllers
                 return NotFound(new { message = "Kullanici bulunamadi" });
             }
 
-            var deleteResult = await _userServices.DeleteUser(currentUser);
+            var deleteResult = await _userServices.DeleteUser(user);
             if (deleteResult.Succeeded)
             {
                 return Ok(new { message = "Kullanici silme islemi basarili." });

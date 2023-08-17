@@ -1,4 +1,5 @@
 ﻿using DigiCash.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -13,19 +14,29 @@ namespace DigiCash.Controllers
     public class AuthenticationController : ControllerBase
     {
         private readonly JwtModel _jwtModel;
-        public AuthenticationController(IOptions<JwtModel> jwtModel)
+        private readonly SignInManager<User> _signInManager;
+        public AuthenticationController(IOptions<JwtModel> jwtModel, SignInManager<User> signInManager)
         {
             _jwtModel = jwtModel.Value;
+            _signInManager = signInManager;
         }
 
         [HttpPost("login")]
-        public IActionResult Login([FromBody] User user)
+        public async Task<IActionResult> Login([FromBody] User user)
         {
-            var user2 = authenticateUser(user);
-            if (user2 == null) return NotFound("Kullanici bulunamadi.");
+            var signInResult = await _signInManager.PasswordSignInAsync(user.tc, user.password, isPersistent: false, lockoutOnFailure: false);
 
-            var token = createToken(user);
-            return Ok(token);
+            if (signInResult.Succeeded)
+            {
+                var token = createToken(user);
+                return Ok(token);
+            }
+            else
+            {
+                return Unauthorized(new { message = "Yanlis bilgiler girildi." });
+            }
+           
+    
         }
 
         private User? authenticateUser(User user) {

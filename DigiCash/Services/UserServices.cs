@@ -63,7 +63,7 @@ namespace DigiCash.Services
             var result = await _userManager.AddPasswordAsync(user, user.password);
             return result;
         }
-        public async Task<IdentityResult> DeleteOneUser(User user)
+        public async Task<IdentityResult> DeleteUser(User user)
         {
             return await _userManager.DeleteAsync(user);
         }

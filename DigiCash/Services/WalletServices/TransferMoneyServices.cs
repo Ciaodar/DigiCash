@@ -17,22 +17,22 @@ namespace DigiCash.Services.WalletServices
 
         public async Task<bool> transferMoney(string walletId , string targetWalletId , double amount)
         {
-            if(await _amountServices.CheckTransferAmount(walletId,amount))
-            {
-                Wallet wallet = (Wallet)_postgreSqlServices.getValue("wallet", walletId);
-                wallet.Balance -= amount;
-                Wallet targetWallet = (Wallet)_postgreSqlServices.getValue("target", targetWalletId);
-                targetWallet.Balance += amount;
-                try
-                {
-                    _postgreSqlServices.updateValue(wallet);
-                    _postgreSqlServices.updateValue(targetWallet);
-                    return true;
-                }catch (Exception ex)
-                {
-                    return false;
-                }
-            }
+            //if(await _amountServices.CheckTransferAmount(walletId,amount))
+            //{
+            //    Wallet wallet = (Wallet)_postgreSqlServices.getValue("wallet", walletId);
+            //    wallet.Balance -= amount;
+            //    Wallet targetWallet = (Wallet)_postgreSqlServices.getValue("target", targetWalletId);
+            //    targetWallet.Balance += amount;
+            //    try
+            //    {
+            //        _postgreSqlServices.updateValue(wallet);
+            //        _postgreSqlServices.updateValue(targetWallet);
+            //        return true;
+            //    }catch (Exception ex)
+            //    {
+            //        return false;
+            //    }
+            //}
             return false;
         }
     }

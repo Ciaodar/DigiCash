@@ -15,14 +15,14 @@ namespace DigiCash.Services.WalletServices
 
         public async Task<bool> deposit(string walletId, double amount)
         {
-            DataTable dataTable = await _postgreSqlServices.getValue("wallets", walletId);
-            DataRow wallet = dataTable.Rows[0];
-            double _balance = (double)wallet["Balance"];
+            DataTable dataTable = await _postgreSqlServices.getValue("wallets", walletId);//metot adları büyük olur
+            //DataRow wallet = dataTable.Rows[0];
+            //double _balance = (double)wallet["Balance"];
+            double _balance = 1.0;
             _balance += amount;
             try
             {
-                wallet["Balance"] = _balance;
-                _postgreSqlServices.updateValue(wallet);
+                _postgreSqlServices.updateValue(_balance);
                 return true;
             }
             catch (Exception)

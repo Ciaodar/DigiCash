@@ -10,7 +10,7 @@ const Stack = createNativeStackNavigator();
 function MainNavigation(){
   return(
     <Stack.Navigator screenOptions={{title:'DigiCash'}}>
-      <Stack.Screen name='Main' component={MainScene} options={{headerShown:false}}/>
+      <Stack.Screen name='Main' component={MainScene} />
       <Stack.Screen name='Transfer' component={TransferScene} options={{presentation:'modal'}}/>
     </Stack.Navigator>
   )

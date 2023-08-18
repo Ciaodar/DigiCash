@@ -71,43 +71,45 @@ namespace DigiCash.Services
 
         public async override Task<DataTable> getValue(string tableName, string id)
         {
-            DataTable dataTable = new DataTable();
-            string query = $"SELECT * FROM {tableName} WHERE id = @id";
-            await using (connection)
-            {
-                Console.WriteLine("ben çalıştım");
+            DataTable dataTable = new DataTable();//entity list kullanılmalı datatable çok kullanılmaz
+            string query = "SELECT * FROM wallets WHERE id = 1";
+                Console.WriteLine("ben çalıştım1");
                 await connection.OpenAsync();
-
-                using (NpgsqlCommand command = new NpgsqlCommand(query, connection))
+                Console.WriteLine("ben çalıştım2");
+                using (var cmd = new NpgsqlCommand("SELECT * FROM \"Wallets\" WHERE \"walletid\" = @walletid", connection))
                 {
-                    command.Parameters.AddWithValue("@id", id);
-                    using (NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(command))
+                    Console.WriteLine("ben çalıştım3");
+                    cmd.Parameters.AddWithValue("walletid", id);
+                    Console.WriteLine("ben çalıştım4");
+                    using (var reader = await cmd.ExecuteReaderAsync())
                     {
-                        Console.WriteLine("ben0 de çalıştım");
-                        adapter.Fill(dataTable);
-                        Console.WriteLine("ben de çalıştım");
-
+                        Console.WriteLine("ben çalıştım5");
+                        while (await reader.ReadAsync())
+                        {
+                            Console.WriteLine("ben çalıştım6");
+                            // Access reader columns by index or 
+                            double balance = reader.GetDouble(reader.GetOrdinal("balance"));
+                            Console.WriteLine(balance);
+                        }
                     }
-                }
+                
+
             }
-            Console.WriteLine("ben1 de çalıştım");
-            connection.Close();
-            Console.WriteLine("ben2 de çalıştım");
+            await connection.CloseAsync();
+
             return dataTable;
         }
 
-        public async override void updateValue(DataRow wallet)
+        public async override void updateValue(double balance)
         {
-            await using (connection)
-            {
-                using var cmd = new NpgsqlCommand("UPDATE wallets SET balance = @newBalance WHERE walletId = @rowId", connection);
-
-                cmd.Parameters.AddWithValue("newBalance", wallet["balance"]); // Set the new value
-                cmd.Parameters.AddWithValue("rowId", wallet["walletId"]); // Set the row ID to update
+                await connection.OpenAsync();
+                using var cmd = new NpgsqlCommand("UPDATE \"Wallets\" SET \"balance\" = @newBalance WHERE \"walletid\" = '1'", connection);
+                cmd.Parameters.AddWithValue("newBalance", balance); // Set the new value
+                cmd.Parameters.AddWithValue("tableName", "Wallets");
 
                 cmd.ExecuteNonQuery();
-            }
-            connection.CloseAsync();
+                await connection.CloseAsync();
+
         }
 }
 }

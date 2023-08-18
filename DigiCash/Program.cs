@@ -11,11 +11,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 //builder.Services.Configure<MongoDbSettings>(builder.Configuration.GetSection("MongoDb"));
 //builder.Services.AddSingleton<MongoDbServices>();
-builder.Services.Configure<PostgreDbSettings>(builder.Configuration.GetSection("Postgre"));
 
+builder.Services.Configure<PostgreDbSettings>(builder.Configuration.GetSection("Postgre"));
 
 //builder.Services.Configure<ConfigSettings>(builder.Configuration.GetSection("AppConfig"));
 //builder.Services.AddSingleton<ConfigServices>();
+
 builder.Services.AddSingleton<DepositServices>();
 
 //builder.Services.AddSingleton<AmountServices>();
@@ -24,23 +25,27 @@ builder.Services.AddSingleton<DepositServices>();
 //builder.Services.AddSingleton<TransferMoneyServices>();
 builder.Services.AddSingleton<PostgreSqlServices>();
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
-     {
-         options.TokenValidationParameters = new TokenValidationParameters
-         {
-             ValidateIssuer = true,
-             ValidateAudience = true,
-             ValidateLifetime = true,
-             ValidateIssuerSigningKey = true,
-             ValidIssuer = builder.Configuration["Jwt:Issuer"],
-             ValidAudience = builder.Configuration["Jwt:Audience"],
-             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"] ?? string.Empty))
-         };
-     });
+//builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+//    .AddJwtBearer(options =>
+//     {
+//         options.TokenValidationParameters = new TokenValidationParameters
+//         {
+//             ValidateIssuer = true,
+//             ValidateAudience = true,
+//             ValidateLifetime = true,
+//             ValidateIssuerSigningKey = true,
+//             ValidIssuer = builder.Configuration["Jwt:Issuer"],
+//             ValidAudience = builder.Configuration["Jwt:Audience"],
+//             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"] ?? string.Empty))
+//         };
+//     });
 
+<<<<<<< HEAD
 builder.Services.AddSingleton<UserServices>();
 builder.Services.Configure<JwtModel>(builder.Configuration.GetSection("Jwt"));
+=======
+//builder.Services.Configure<JwtModel>(builder.Configuration.GetSection("Jwt"));
+>>>>>>> 6a8b08f (postgre solving)
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

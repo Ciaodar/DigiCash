@@ -19,32 +19,32 @@ namespace DigiCash.Services.WalletServices
 
         public async Task<bool> withdraw(string walletId, double amount)
         {
-            if (await _amountServices.CheckWithdrawAmount(walletId, amount))
+            bool withdrawAmountIsOkey = await _amountServices.CheckWithdrawAmount(walletId, amount);
+            if (!withdrawAmountIsOkey) { return false; }
+            try
             {
-                try { 
-                
-                    DataTable dataTable = await _postgreSqlServices.getValue("wallet", walletId);
-                    DataRow wallet = dataTable.Rows[0];
-                    double _balance = (double)wallet["Balance"];
-                    if (wallet != null)
-                    {
-                        _balance -= amount;
-                        wallet["Balance"] = _balance;
-                        _postgreSqlServices.updateValue(wallet);
-                        _transactionService.addHistory(walletId, new Process("Withdraw", _balance + amount, _balance, null));
-                        return true;
-                    }
-                    else
-                    {
-                        return false; // Cüzdan bulunamadı
-                    }
-                }
-                catch (Exception)
+                DataTable dataTable = await _postgreSqlServices.getValue("wallet", walletId);
+                DataRow wallet = dataTable.Rows[0];
+                double _balance = (double)wallet["Balance"];
+                if (wallet != null)
                 {
-                    return false; // Hata durumunda false döndür
+                    _balance -= amount;
+                    wallet["Balance"] = _balance;
+                    //_postgreSqlServices.updateValue(wallet);
+                    //_transactionService.addHistory(walletId, new Process("Withdraw", _balance + amount, _balance, null));
+                    return true;
+                }
+                else
+                {
+                    return false; // Cüzdan bulunamadı
                 }
             }
-            return false; // Çekim miktarı uygun değil
-        }
+            catch (Exception)
+            {
+                return false; // Hata durumunda false döndür
+            }
+        
+        // Çekim miktarı uygun değil
+    }
     }
 }

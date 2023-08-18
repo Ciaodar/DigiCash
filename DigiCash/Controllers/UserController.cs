@@ -19,7 +19,7 @@ namespace DigiCash.Controllers
             _signInManager = signInManager;
             _userServices = userServices;
         }
-        [HttpPost("signup")]
+        /*[HttpPost("signup")]
         public async Task<IActionResult> SignUp([FromBody] User user)
         {
             if (ModelState.IsValid)

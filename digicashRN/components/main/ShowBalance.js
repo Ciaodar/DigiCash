@@ -1,14 +1,17 @@
 import { View, Text, StyleSheet } from "react-native";
+import { GlobalStyles } from "../../constants/style";
 
  
  function ShowBalance({amount}){
     return (
-        <View style={styles.content}>
-            <View>
-                <Text>Your Balance</Text>
-            </View>
-            <View>
-                <Text>$2,898.0</Text>
+        <View>
+            <View style={styles.content}>
+                <View style={styles.balanceWrapper}>
+                    <Text style={styles.balanceText}>Your Balance</Text>
+                </View>
+                <View>
+                    <Text style={styles.amountText}>$2,898.0</Text>
+                </View>
             </View>
         </View>
     )
@@ -18,13 +21,22 @@ import { View, Text, StyleSheet } from "react-native";
 
  const styles = StyleSheet.create({
     content:{
-        flex:1,
-        flexDirection:'row',
         alignItems:'center',
-        backgroundColor:'green'
+        backgroundColor:GlobalStyles.colors.primaryMain,
+        borderRadius:32,
+        marginHorizontal:20,
+        marginTop:30,
+        paddingVertical:30,
     },
     balanceWrapper:{
         justifyContent:'center'
+    },
+    balanceText:{
+        fontSize:16
+    },
+    amountText:{
+        fontSize:24,
+        fontWeight:'bold'
     }
 
  })

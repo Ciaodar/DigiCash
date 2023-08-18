@@ -9,7 +9,10 @@ function MainScene(){
     })
     return(
         <View>
+            <Text>balance-wallet</Text>
             <ShowBalance/>
+            <Text>Transfer buton</Text>
+            <Text>İşlem geçmişi</Text>
         </View>
     );
 }

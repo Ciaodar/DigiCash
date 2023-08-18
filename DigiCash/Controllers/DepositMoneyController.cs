@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using DigiCash.Models;
 using DigiCash.Services;
 using DigiCash.Services.WalletServices;
@@ -18,23 +19,33 @@ namespace DigiCash.Controllers
 
         [HttpPost]
         public async Task<IActionResult> DepositMoney([FromBody] RequestModel request) {
-            try
+            //try
+            //{
+            //    bool response;
+            //    if (request.amount!=null && request.walletId!=null)
+            //    {
+            //        response = await _depositServices.deposit(request.walletId, request.amount??0);
+            //    }
+            //    else
+            //    {
+            //        return BadRequest("You didn't send an ID or an Amount value");
+            //    }
+            //    return Ok();
+            //}
+            //catch (Exception e)
+            //{
+            //    return BadRequest();
+            //}
+            bool response;
+            if (request.amount != null && request.walletId != null)
             {
-                bool response;
-                if (request.amount!=null && request.walletId!=null)
-                {
-                    response = await _depositServices.deposit(request.walletId, request.amount??0);
-                }
-                else
-                {
-                    return BadRequest("You didn't send an ID or an Amount value");
-                }
-                return Ok();
+                response = await _depositServices.deposit(request.walletId, request.amount ?? 0);
             }
-            catch (Exception e)
+            else
             {
-                return StatusCode(500,e);
+                return BadRequest("You didn't send an ID or an Amount value");
             }
+            return Ok();
         }
     }
 }

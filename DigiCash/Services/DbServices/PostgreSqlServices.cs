@@ -19,17 +19,54 @@ namespace DigiCash.Services
 
         public override void addValue(User user)
         {
+            using (connection)
+            {
+                string query = "INSERT INTO users (username, email) VALUES (@username, @email)";
 
+                using (NpgsqlCommand command = new NpgsqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@TcKimlikNo", user.TcKimlikNo);
+                    command.Parameters.AddWithValue("@FirstName", user.firstName);
+
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+            }
         }
 
         public override void addValue(string userId, Wallet wallet)
         {
             //kullanıcıya yeni bir cüzdan oluşturur
+            using (connection)
+            {
+                string query = "INSERT INTO wallets (userId, balance) VALUES (@userId, @balance)";
+
+                using (NpgsqlCommand command = new NpgsqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@userId", userId);
+                    command.Parameters.AddWithValue("@balance", wallet.Balance);
+
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+            }
         }
 
         public override void deleteValue(string walletId)
         {
             //kullanıcının istediği wallet ı silmesini sağlar
+            using (connection)
+            {
+                string query = "DELETE FROM wallets WHERE walletId = @walletId";
+
+                using (NpgsqlCommand command = new NpgsqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@walletId", walletId);
+
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+            }
         }
 
         public async override Task<DataTable> getValue(string tableName, string id)

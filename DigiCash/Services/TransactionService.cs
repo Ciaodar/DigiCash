@@ -19,31 +19,31 @@ namespace DigiCash.Services
 
         private async Task<bool?> checkHistory(string walletId)
         {
-            //     try
-            //     {
-            //         //return await _mongoDbServices.getValue("History", walletId);
-            //         return new ProcessHistory();
-            //     }
-            //     catch (Exception)
-            //     {
-            //         return null;
-            //     }
-            //    return null;
-            //}
+            try
+            {
+                //return new ProcessHistory(walletId,await _mongoDbServices.GetHistoryAsync(walletId));
+             
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+            return null;
+        }
 
 
-            //public async void addHistory(string walletId,Process process)
-            //{
-            //    _mongoDbServices.addValue( new ProcessHistory(walletId,process));
-            //}
+        public async void addHistory(string walletId, Process process)
+        {
+            //_mongoDbServices.addValue(new ProcessHistory(walletId, process));
+        }
 
 
-            //public ProcessHistory getHistory(String walletId)
-            //{
-            //    Wallet wallet = (Wallet)_mongoDbServices.getValue("wallet", walletId);
-            //    return new ProcessHistory(wallet);
-            //}
-            return false;
+        /*public ProcessHistory getHistory(String walletId)
+        {
+           // Wallet wallet = (Wallet)_mongoDbServices.getValue("wallet", walletId);
+            //return new ProcessHistory(wallet);
+        }*/
+            
         }
     }
-}
+

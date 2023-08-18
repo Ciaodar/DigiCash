@@ -21,44 +21,44 @@ namespace DigiCash.Controllers
             _signInManager = signInManager;
         }
 
-        [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] User user)
-        {
-            var signInResult = await _signInManager.PasswordSignInAsync(user.tc, user.password, isPersistent: false, lockoutOnFailure: false);
+        //[HttpPost("login")]
+        //public async Task<IActionResult> Login([FromBody] User user)
+        //{
+        //    var signInResult = await _signInManager.PasswordSignInAsync(user.tc, user.password, isPersistent: false, lockoutOnFailure: false);
 
-            if (signInResult.Succeeded)
-            {
-                var token = createToken(user);
-                return Ok(token);
-            }
-            else
-            {
-                return Unauthorized(new { message = "Yanlis bilgiler girildi." });
-            }
+        //    if (signInResult.Succeeded)
+        //    {
+        //        var token = createToken(user);
+        //        return Ok(token);
+        //    }
+        //    else
+        //    {
+        //        return Unauthorized(new { message = "Yanlis bilgiler girildi." });
+        //    }
            
     
-        }
+        //}
 
-        private User? authenticateUser(User user) {
-            throw new NotImplementedException();
-        }
+        //private User? authenticateUser(User user) {
+        //    throw new NotImplementedException();
+        //}
 
-        private string createToken(User user)
-        {
-            if (_jwtModel.Key == null) throw new Exception("JWT Key değeri null olamaz.");
+        //private string createToken(User user)
+        //{
+        //    if (_jwtModel.Key == null) throw new Exception("JWT Key değeri null olamaz.");
 
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtModel.Key));
-            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+        //    var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtModel.Key));
+        //    var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
-            var claimList = new[]
-            {
-                new Claim(ClaimTypes.NameIdentifier , user.TcKimlikNo!),
-                new Claim(ClaimTypes.NameIdentifier , user.firstName),
-                new Claim(ClaimTypes.NameIdentifier , user.lastName)
-            };
-            var token = new JwtSecurityToken(_jwtModel.Issuer, _jwtModel.Audience, claimList, expires: DateTime.Now.AddMonths(3) , signingCredentials: credentials);
+        //    var claimList = new[]
+        //    {
+        //        new Claim(ClaimTypes.NameIdentifier , user.TcKimlikNo!),
+        //        new Claim(ClaimTypes.NameIdentifier , user.firstName),
+        //        new Claim(ClaimTypes.NameIdentifier , user.lastName)
+        //    };
+        //    var token = new JwtSecurityToken(_jwtModel.Issuer, _jwtModel.Audience, claimList, expires: DateTime.Now.AddMonths(3) , signingCredentials: credentials);
 
-            return new JwtSecurityTokenHandler().WriteToken(token);
-        }
+        //    return new JwtSecurityTokenHandler().WriteToken(token);
+        //}
     }
 }

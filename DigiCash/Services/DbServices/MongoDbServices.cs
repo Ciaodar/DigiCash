@@ -7,10 +7,8 @@ using MongoDB.Driver;
 
 namespace DigiCash.Services
 {
-
-    public class MongoDbServices : DBModel
+    public class MongoDbServices
     {
-
         private readonly IMongoCollection<ProcessHistory> _collection;
 
         public MongoDbServices(IOptions<MongoDbSettings> mongoDbSettings)
@@ -19,16 +17,15 @@ namespace DigiCash.Services
             var database = client.GetDatabase(mongoDbSettings.Value.DatabaseName);
             _collection = database.GetCollection<ProcessHistory>(mongoDbSettings.Value.CollectionName);
         }
-        public async override void addValue(ProcessHistory processHistory)
+        public async void AddValueAsync(ProcessHistory processHistory)
         {
-            await _collection.UpdateOneAsync(Builders<ProcessHistory>.Filter.Eq( _ => _.WalletId, processHistory.WalletId),
-                Builders<ProcessHistory>.Update.SetOnInsert( _ => _.WalletId, processHistory.WalletId).
+            await _collection.UpdateOneAsync(Builders<ProcessHistory>.Filter.Eq(_ =>_.WalletId, processHistory.WalletId),
+            Builders<ProcessHistory>.Update.SetOnInsert( _ => _.WalletId, processHistory.WalletId).
                     Push("hareketler", processHistory.histories[0]),
                 new UpdateOptions() { IsUpsert = true });
-            return;
         }
 
-       public async override Task<Object> getValue(string id)
+       public async Task<Object> GetHistoryAsync(string id)
         {
             var filter = Builders<ProcessHistory>.Filter
                 .Eq(r => r.WalletId, id);

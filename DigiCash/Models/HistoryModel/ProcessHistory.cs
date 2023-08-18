@@ -7,7 +7,7 @@ namespace DigiCash.Models
         public List<Process> histories { get; set; } = new List<Process>();
         public ProcessHistory(string walletID,Process process)
         {
-            histories[0] = process;
+            histories.Add(process);
             WalletId = walletID;
         }
     }

@@ -9,16 +9,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-//builder.Services.Configure<MongoDbSettings>(builder.Configuration.GetSection("MongoDb"));
-//builder.Services.AddSingleton<MongoDbServices>();
-
+builder.Services.Configure<MongoDbSettings>(builder.Configuration.GetSection("MongoDb"));
 builder.Services.Configure<PostgreDbSettings>(builder.Configuration.GetSection("Postgre"));
-
 //builder.Services.Configure<ConfigSettings>(builder.Configuration.GetSection("AppConfig"));
+
+builder.Services.AddSingleton<MongoDbServices>();
 //builder.Services.AddSingleton<ConfigServices>();
-
 builder.Services.AddSingleton<DepositServices>();
-
 //builder.Services.AddSingleton<AmountServices>();
 //builder.Services.AddSingleton<BalanceServices>();
 //builder.Services.AddSingleton<WithdrawServices>();
@@ -40,12 +37,9 @@ builder.Services.AddSingleton<PostgreSqlServices>();
 //         };
 //     });
 
-<<<<<<< HEAD
-builder.Services.AddSingleton<UserServices>();
-builder.Services.Configure<JwtModel>(builder.Configuration.GetSection("Jwt"));
-=======
+//builder.Services.AddSingleton<UserServices>();
 //builder.Services.Configure<JwtModel>(builder.Configuration.GetSection("Jwt"));
->>>>>>> 6a8b08f (postgre solving)
+
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

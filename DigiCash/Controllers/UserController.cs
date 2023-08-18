@@ -13,12 +13,13 @@ namespace DigiCash.Controllers
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserServices _userServices;
 
-        public UserController(UserManager<IdentityUser> userManager , SignInManager<IdentityUser> signInManager , UserServices userServices)
+        public UserController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, UserServices userServices)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _userServices = userServices;
         }
+
         /*[HttpPost("signup")]
         public async Task<IActionResult> SignUp([FromBody] User user)
         {
@@ -67,6 +68,7 @@ namespace DigiCash.Controllers
             {
                 return BadRequest(new { message = "Bir hata meydana geldi." });
             }
-        }
+        }*/
     }
-}
+    }
+

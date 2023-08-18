@@ -3,9 +3,9 @@
     
     public class RequestModel
     {
-        public string? userId { get; set; }
-        public string? walletId { get; set; }
-        public string? targetWalletId { get; set; }
-        public double? amount { get; set; }
+        public string? UserId { get; set; }
+        public string? WalletId { get; set; }
+        public string? TargetWalletId { get; set; }
+        public double? Amount { get; set; }
     }
 }

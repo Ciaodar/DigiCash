@@ -37,8 +37,9 @@ builder.Services.AddSingleton<PostgreSqlServices>();
 //         };
 //     });
 
-//builder.Services.AddSingleton<UserServices>();
-//builder.Services.Configure<JwtModel>(builder.Configuration.GetSection("Jwt"));
+
+builder.Services.AddSingleton<UserServices>();
+builder.Services.Configure<JwtModel>(builder.Configuration.GetSection("Jwt"));
 
 
 builder.Services.AddControllers();

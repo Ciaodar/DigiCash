@@ -23,14 +23,13 @@ namespace DigiCash.Services.WalletServices
             if (!withdrawAmountIsOkey) { return false; }
             try
             {
-                DataTable dataTable = await _postgreSqlServices.getValue("wallet", walletId);
-                DataRow wallet = dataTable.Rows[0];
-                double _balance = (double)wallet["Balance"];
+                Wallet wallet = await _postgreSqlServices.GetWallet(walletId);
+                double _balance = (double)wallet.Balance;
                 if (wallet != null)
                 {
                     _balance -= amount;
-                    wallet["Balance"] = _balance;
-                    //_postgreSqlServices.updateValue(wallet);
+                    wallet.Balance = _balance;
+                    _postgreSqlServices.SetBalance(_balance,walletId);
                     //_transactionService.addHistory(walletId, new Process("Withdraw", _balance + amount, _balance, null));
                     return true;
                 }

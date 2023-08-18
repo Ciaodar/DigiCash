@@ -21,10 +21,10 @@ namespace DigiCash.Controllers
             _signInManager = signInManager;
         }
 
-        //[HttpPost("login")]
-        //public async Task<IActionResult> Login([FromBody] User user)
-        //{
-        //    var signInResult = await _signInManager.PasswordSignInAsync(user.tc, user.password, isPersistent: false, lockoutOnFailure: false);
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] User user)
+        {
+            var signInResult = await _signInManager.PasswordSignInAsync(user.TcKimlikNo, user.Password, isPersistent: false, lockoutOnFailure: false);
 
         //    if (signInResult.Succeeded)
         //    {
@@ -50,13 +50,13 @@ namespace DigiCash.Controllers
         //    var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtModel.Key));
         //    var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
-        //    var claimList = new[]
-        //    {
-        //        new Claim(ClaimTypes.NameIdentifier , user.TcKimlikNo!),
-        //        new Claim(ClaimTypes.NameIdentifier , user.firstName),
-        //        new Claim(ClaimTypes.NameIdentifier , user.lastName)
-        //    };
-        //    var token = new JwtSecurityToken(_jwtModel.Issuer, _jwtModel.Audience, claimList, expires: DateTime.Now.AddMonths(3) , signingCredentials: credentials);
+            var claimList = new[]
+            {
+                new Claim(ClaimTypes.NameIdentifier , user.TcKimlikNo!),
+                new Claim(ClaimTypes.NameIdentifier , user.FirstName),
+                new Claim(ClaimTypes.NameIdentifier , user.LastName)
+            };
+            var token = new JwtSecurityToken(_jwtModel.Issuer, _jwtModel.Audience, claimList, expires: DateTime.Now.AddMonths(3) , signingCredentials: credentials);
 
         //    return new JwtSecurityTokenHandler().WriteToken(token);
         //}

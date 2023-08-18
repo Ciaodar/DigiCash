@@ -18,10 +18,23 @@ namespace DigiCash.Controllers
         [HttpPost]
         public async Task<IActionResult> moneyTransfer([FromBody] RequestModel request)
         {
-            if (request.amount == null || request.walletId == null || request.targetWalletId == null) { return BadRequest("You didn't send an ID, TargetID or an Amount value");}
-
-            bool response = await _transferMoney.transferMoney(request.walletId,request.targetWalletId,request.amount ?? 0);
-            return Ok(response);
+            try 
+            {
+                bool response;
+                if (request.Amount != null && request.WalletId != null&& request.TargetWalletId != null)
+                {
+                    response = await _transferMoney.transferMoney(request.WalletId,request.TargetWalletId,request.Amount ?? 0);
+                }
+                else
+                {
+                    return BadRequest("You didn't send an ID, TargetID or an Amount value");
+                }
+                return Ok(true);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Something Went Wrong.");
+            }
         }
     }
 }

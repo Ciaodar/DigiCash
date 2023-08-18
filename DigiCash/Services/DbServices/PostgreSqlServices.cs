@@ -1,13 +1,10 @@
-﻿using System;
-using System.Data;
-using DigiCash.Models;
-using DigiCash.Models.DbModels;
+﻿using DigiCash.Models;
 using Microsoft.Extensions.Options;
 using Npgsql;
 
 namespace DigiCash.Services
 {
-    public class PostgreSqlServices : DBModel
+    public class PostgreSqlServices
     {
         private NpgsqlConnection connection;
 
@@ -17,24 +14,21 @@ namespace DigiCash.Services
             connection = new NpgsqlConnection(connectionString);
         }
 
-        public override void addValue(User user)
+        public void AddUser(User user)
         {
-            using (connection)
+            string query = "INSERT INTO users (username, email) VALUES (@username, @email)";
+
+            using (NpgsqlCommand command = new NpgsqlCommand(query, connection))
             {
-                string query = "INSERT INTO users (username, email) VALUES (@username, @email)";
+                command.Parameters.AddWithValue("@TcKimlikNo", user.TcKimlikNo);
+                command.Parameters.AddWithValue("@FirstName", user.FirstName);
 
-                using (NpgsqlCommand command = new NpgsqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@TcKimlikNo", user.TcKimlikNo);
-                    command.Parameters.AddWithValue("@FirstName", user.firstName);
-
-                    connection.Open();
-                    command.ExecuteNonQuery();
-                }
+                connection.Open();
+                command.ExecuteNonQuery();
             }
         }
 
-        public override void addValue(string userId, Wallet wallet)
+        public void AddWallet(string userId, Wallet wallet)
         {
             //kullanıcıya yeni bir cüzdan oluşturur
             using (connection)
@@ -52,65 +46,66 @@ namespace DigiCash.Services
             }
         }
 
-        public override void deleteValue(string walletId)
+        public void DeleteWallet(string walletId)
         {
             //kullanıcının istediği wallet ı silmesini sağlar
-            using (connection)
+
+            string query = "DELETE FROM \"Wallets\" WHERE walletId = @walletId";
+
+            using (NpgsqlCommand command = new NpgsqlCommand(query, connection))
             {
-                string query = "DELETE FROM wallets WHERE walletId = @walletId";
+                command.Parameters.AddWithValue("@walletId", walletId);
 
-                using (NpgsqlCommand command = new NpgsqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@walletId", walletId);
-
-                    connection.Open();
-                    command.ExecuteNonQuery();
-                }
+                connection.Open();
+                command.ExecuteNonQuery();
+                connection.Close(); 
             }
+            
         }
 
-        public async override Task<DataTable> getValue(string tableName, string id)
+        public async Task<Wallet> GetWallet(string id)
         {
-            DataTable dataTable = new DataTable();//entity list kullanılmalı datatable çok kullanılmaz
-            string query = "SELECT * FROM wallets WHERE id = 1";
-                Console.WriteLine("ben çalıştım1");
-                await connection.OpenAsync();
-                Console.WriteLine("ben çalıştım2");
-                using (var cmd = new NpgsqlCommand("SELECT * FROM \"Wallets\" WHERE \"walletid\" = @walletid", connection))
+            Wallet wallet = new Wallet();           //entity list kullanılmalı datatable çok kullanılmaz
+            Console.WriteLine("ben çalıştım1");
+            await connection.OpenAsync();
+            Console.WriteLine("ben çalıştım2");
+            using (var cmd = new NpgsqlCommand("SELECT * FROM \"Wallets\" WHERE \"walletid\" = @walletid", connection))
+            {
+                Console.WriteLine("ben çalıştım3");
+                cmd.Parameters.AddWithValue("walletid", id);
+                Console.WriteLine("ben çalıştım4");
+                using (var reader = await cmd.ExecuteReaderAsync())
                 {
-                    Console.WriteLine("ben çalıştım3");
-                    cmd.Parameters.AddWithValue("walletid", id);
-                    Console.WriteLine("ben çalıştım4");
-                    using (var reader = await cmd.ExecuteReaderAsync())
+                    Console.WriteLine("ben çalıştım5");
+                        
+                    while (await reader.ReadAsync())
                     {
-                        Console.WriteLine("ben çalıştım5");
-                        while (await reader.ReadAsync())
-                        {
-                            Console.WriteLine("ben çalıştım6");
-                            // Access reader columns by index or 
-                            double balance = reader.GetDouble(reader.GetOrdinal("balance"));
-                            Console.WriteLine(balance);
-                        }
+                        string tc = reader.GetString(reader.GetOrdinal("tc"));
+                        string walletid = reader.GetString(reader.GetOrdinal("walletid"));
+                        double balance = reader.GetDouble(reader.GetOrdinal("balance"));
+                        string currency = reader.GetString(reader.GetOrdinal("currency"));
+                        wallet.Balance = balance;
+                        wallet.Currency = currency;
+                        wallet.TC = tc;
+                        wallet.Id = walletid;
                     }
-                
-
+                }
             }
             await connection.CloseAsync();
 
-            return dataTable;
+            return wallet;
         }
 
-        public async override void updateValue(double balance)
+        public async void SetBalance(double balance,string walletid)
         {
-                await connection.OpenAsync();
-                using var cmd = new NpgsqlCommand("UPDATE \"Wallets\" SET \"balance\" = @newBalance WHERE \"walletid\" = '1'", connection);
-                cmd.Parameters.AddWithValue("newBalance", balance); // Set the new value
-                cmd.Parameters.AddWithValue("tableName", "Wallets");
+            await connection.OpenAsync();
+            using var cmd = new NpgsqlCommand("UPDATE \"Wallets\" SET \"balance\" = @newBalance WHERE \"walletid\" = @walletid", connection);
+            cmd.Parameters.AddWithValue("newBalance", balance); // new balance
+            cmd.Parameters.AddWithValue("walletid", walletid); // wallet to make change on
 
-                cmd.ExecuteNonQuery();
-                await connection.CloseAsync();
-
+            cmd.ExecuteNonQuery();
+            await connection.CloseAsync();
         }
-}
+    }
 }
 

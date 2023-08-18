@@ -30,7 +30,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\DbServices\" />
-    <Folder Include="Models\DbInterfaces\" />
     <Folder Include="Models\DbSettings\" />
     <Folder Include="Services\WalletServices\" />
   </ItemGroup>

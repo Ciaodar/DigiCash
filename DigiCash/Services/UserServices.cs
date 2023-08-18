@@ -17,14 +17,14 @@ namespace DigiCash.Services
             _logger = logger;
             _postgreSqlServices = postgreSqlServices;
         }
-        public async Task<bool> CreateUser(String tc , String firstName , String lastName , String password)
+        public async Task<bool> CreateUser(String TcKimlikNo , String firstName , String lastName , String password)
         {
             User user = new User
             {
                 firstName = firstName,
                 lastName = lastName,
                 password = password,
-                tc = tc
+                TcKimlikNo = TcKimlikNo
             };
             AddUserToDb(user);
             return true;

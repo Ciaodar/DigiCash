@@ -52,7 +52,7 @@ namespace DigiCash.Controllers
 
             var claimList = new[]
             {
-                new Claim(ClaimTypes.NameIdentifier , user.tc!),
+                new Claim(ClaimTypes.NameIdentifier , user.TcKimlikNo!),
                 new Claim(ClaimTypes.NameIdentifier , user.firstName),
                 new Claim(ClaimTypes.NameIdentifier , user.lastName)
             };

@@ -4,7 +4,7 @@ namespace DigiCash.Models
 {
     public class User 
     {
-        public string? tc { get; set; }
+        public string? TcKimlikNo { get; set; }
         [Required(ErrorMessage = "TC'nizi girmek zorunludur.")]
         public string firstName { get; set; } = string.Empty;
         [Required(ErrorMessage = "Lütfen bir isim giriniz.")]

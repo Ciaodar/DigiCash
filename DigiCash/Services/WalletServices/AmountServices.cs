@@ -18,7 +18,7 @@ namespace DigiCash.Services
                 if (//if yapısı kontrol bölümü kısaltma
                     amount < _configServices.getMaxWithdraw() &&
                     amount < await _balanceServices.GetBalanceAsync(walletId) &&
-                    (_transactionServices.GetHistory(walletId) + amount) < _configServices.getMaxWithdraw())
+                    (_transactionServices.GetLast24HoursProcess(walletId) + amount) < _configServices.getMaxWithdraw())
                 {
                     return true;
                 }
@@ -32,7 +32,7 @@ namespace DigiCash.Services
                 if (
                     amount < _configServices.getMaxTransfer() &&
                     amount < await _balanceServices.GetBalanceAsync(walletId) &&
-                    (_transactionServices.GetHistory(walletId) + amount) < _configServices.getMaxWithdraw()
+                    (_transactionServices.GetLast24HoursProcess(walletId) + amount) < _configServices.getMaxWithdraw()
                     )
                 {
                     return true;

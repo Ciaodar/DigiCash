@@ -30,7 +30,7 @@ namespace DigiCash.Services.WalletServices
                     _balance -= amount;
                     wallet.Balance = _balance;
                     _postgreSqlServices.SetBalance(_balance,walletId);
-                    _transactionService.AddHistory(walletId, new Process("Withdraw", _balance + amount, _balance, null));
+                    _transactionService.AddHistory(walletId, new Process("Withdraw", _balance + amount, _balance, null , amount));
                     return true;
                 }
                 else

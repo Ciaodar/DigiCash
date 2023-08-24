@@ -11,31 +11,31 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.Configure<MongoDbSettings>(builder.Configuration.GetSection("MongoDb"));
 builder.Services.Configure<PostgreDbSettings>(builder.Configuration.GetSection("Postgre"));
-//builder.Services.Configure<ConfigSettings>(builder.Configuration.GetSection("AppConfig"));
+builder.Services.Configure<ConfigSettings>(builder.Configuration.GetSection("AppConfig"));
 
 builder.Services.AddSingleton<MongoDbServices>();
-//builder.Services.AddSingleton<ConfigServices>();
+builder.Services.AddSingleton<ConfigServices>();
 builder.Services.AddSingleton<DepositServices>();
-//builder.Services.AddSingleton<AmountServices>();
-//builder.Services.AddSingleton<BalanceServices>();
-//builder.Services.AddSingleton<WithdrawServices>();
-//builder.Services.AddSingleton<TransferMoneyServices>();
+builder.Services.AddSingleton<AmountServices>();
+builder.Services.AddSingleton<BalanceServices>();
+builder.Services.AddSingleton<WithdrawServices>();
+builder.Services.AddSingleton<TransferMoneyServices>();
 builder.Services.AddSingleton<PostgreSqlServices>();
 
-//builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-//    .AddJwtBearer(options =>
-//     {
-//         options.TokenValidationParameters = new TokenValidationParameters
-//         {
-//             ValidateIssuer = true,
-//             ValidateAudience = true,
-//             ValidateLifetime = true,
-//             ValidateIssuerSigningKey = true,
-//             ValidIssuer = builder.Configuration["Jwt:Issuer"],
-//             ValidAudience = builder.Configuration["Jwt:Audience"],
-//             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"] ?? string.Empty))
-//         };
-//     });
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+     {
+         options.TokenValidationParameters = new TokenValidationParameters
+         {
+             ValidateIssuer = true,
+             ValidateAudience = true,
+             ValidateLifetime = true,
+             ValidateIssuerSigningKey = true,
+             ValidIssuer = builder.Configuration["Jwt:Issuer"],
+             ValidAudience = builder.Configuration["Jwt:Audience"],
+             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"] ?? string.Empty))
+         };
+     });
 
 
 builder.Services.AddSingleton<UserServices>();

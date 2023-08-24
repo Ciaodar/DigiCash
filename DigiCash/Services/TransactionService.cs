@@ -81,6 +81,15 @@ namespace DigiCash.Services
             return Last24Hours;
 
         }
+        public double GetLast24HoursProcess(String walletId)
+        {
+            double Last24Hours = 0;
+            foreach(Process processes in GetLast24Hours(walletId))
+            {
+                Last24Hours += processes.ProcessBalance;
+            }
+            return Last24Hours;
+        }
     }
 }
 

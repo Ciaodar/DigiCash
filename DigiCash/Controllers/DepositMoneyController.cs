@@ -19,7 +19,7 @@ namespace DigiCash.Controllers
             _mongoDbServices = mongoDbServices;
         }
 
-        [HttpPost]
+        [HttpPost("deposit")]
         public async Task<IActionResult> DepositMoney([FromBody] RequestModel request) {
             bool Response;
             try

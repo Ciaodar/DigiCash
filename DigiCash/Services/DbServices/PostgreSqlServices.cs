@@ -34,7 +34,6 @@ namespace DigiCash.Services
             using (connection)
             {
                 string query = "INSERT INTO wallets (userId, balance) VALUES (@userId, @balance)";
-
                 using (NpgsqlCommand command = new NpgsqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@userId", userId);
@@ -45,11 +44,9 @@ namespace DigiCash.Services
                 }
             }
         }
-
         public void DeleteWallet(string walletId)
         {
             //kullanıcının istediği wallet ı silmesini sağlar
-
             string query = "DELETE FROM \"Wallets\" WHERE walletId = @walletId";
 
             using (NpgsqlCommand command = new NpgsqlCommand(query, connection))
@@ -62,7 +59,6 @@ namespace DigiCash.Services
             }
             
         }
-
         public async Task<Wallet> GetWallet(string id)
         {
             Wallet wallet = new Wallet();           //entity list kullanılmalı datatable çok kullanılmaz

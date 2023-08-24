@@ -16,7 +16,7 @@ namespace DigiCash.Services.WalletServices
         public async Task<bool> Deposit(string walletId, double amount)
         {
             Wallet wallet = await _postgreSqlServices.GetWallet(walletId);
-            double _balance = (double)wallet.Balance;
+            double _balance = wallet.Balance;
             _balance += amount;
             try
             {

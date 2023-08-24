@@ -9,10 +9,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.Configure<MongoDbSettings>(builder.Configuration.GetSection("MongoDb"));
-builder.Services.Configure<PostgreDbSettings>(builder.Configuration.GetSection("Postgre"));
-builder.Services.Configure<ConfigSettings>(builder.Configuration.GetSection("AppConfig"));
+//builder.Services.Configure<MongoDbSettings>(builder.Configuration.GetSection("MongoDb"));
+//builder.Services.Configure<PostgreDbSettings>(builder.Configuration.GetSection("Postgre"));
+//builder.Services.Configure<ConfigSettings>(builder.Configuration.GetSection("AppConfig"));
 
+/*
 builder.Services.AddSingleton<MongoDbServices>();
 builder.Services.AddSingleton<ConfigServices>();
 builder.Services.AddSingleton<DepositServices>();
@@ -21,6 +22,9 @@ builder.Services.AddSingleton<BalanceServices>();
 builder.Services.AddSingleton<WithdrawServices>();
 builder.Services.AddSingleton<TransferMoneyServices>();
 builder.Services.AddSingleton<PostgreSqlServices>();
+*/
+
+
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>

@@ -17,33 +17,70 @@ namespace DigiCash.Services
             _mongoDbServices = mongoDbServices;
         }
 
-        private async Task<bool?> checkHistory(string walletId)
+        /*  private async Task<ProcessHistory> CheckHistory(string walletId)
+          {
+              try
+              {
+                  return new ProcessHistory(walletId,await _mongoDbServices.GetValue(walletId));
+
+              }
+              catch (Exception)
+              {
+                  throw new Exception("Bir hata meydana geldi.");
+              }
+              return null;
+          }*/
+
+        private async Task<ProcessHistory> CheckHistory(string walletId)
         {
             try
             {
-                //return new ProcessHistory(walletId,await _mongoDbServices.GetHistoryAsync(walletId));
-             
+                var historyObject = await _mongoDbServices.GetValue(walletId);
+                if (historyObject is ProcessHistory processHistory)
+                {
+                    return processHistory;
+                }
+                throw new Exception("Cüzdana ait bir gecmis kaydi bulunamadi."); // Eğer historyObject ProcessHistory türünde değilse
             }
             catch (Exception)
             {
-                return null;
+                throw new Exception("Bir hata meydana geldi"); // Hata durumunda
             }
-            return null;
         }
 
 
-        public async void addHistory(string walletId, Process process)
+        public async void AddHistory(string walletId, Process process)
         {
-            //_mongoDbServices.addValue(new ProcessHistory(walletId, process));
+            _mongoDbServices.AddValue(new ProcessHistory(walletId, process));
         }
 
 
-        /*public ProcessHistory getHistory(String walletId)
+        public ProcessHistory GetHistory(String walletId)
         {
-           // Wallet wallet = (Wallet)_mongoDbServices.getValue("wallet", walletId);
+            //ProcessHistory history = _mongoDbServices.GetValue(walletId);
             //return new ProcessHistory(wallet);
-        }*/
-            
+            var filter = Builders<ProcessHistory>.Filter.Eq("WalletId", walletId);
+            ProcessHistory transactions = (ProcessHistory)_mongoDbServices.GetCollection().Find(filter);
+            return transactions;
+        }
+
+        public List<Process> GetLast24Hours(String walletId)
+        {
+            DateTime yesterday = DateTime.Now.AddDays(-1);
+            var filter = Builders<ProcessHistory>.Filter.Eq("WalletId", walletId);
+            ProcessHistory transaction = (ProcessHistory)_mongoDbServices.GetCollection().Find(filter);
+            List<Process> Last24Hours = new List<Process>();
+            foreach(Process history in transaction.Histories)
+            {
+                if(history.DateTime > yesterday && history.DateTime <= DateTime.Now)
+                {
+                    Last24Hours.Add(history);
+                }
+                break;
+            }
+            return Last24Hours;
+
         }
     }
+}
 

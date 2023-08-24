@@ -15,7 +15,7 @@ namespace DigiCash.Services.WalletServices
             _postgreSqlServices = postgreSqlServices;
         }
 
-        public async Task<bool> transferMoney(string walletId , string targetWalletId , double amount)
+        public async Task<bool> TransferMoney(string walletId , string targetWalletId , double amount)
         {
             //if(await _amountServices.CheckTransferAmount(walletId,amount))
             //{

@@ -16,9 +16,9 @@ namespace DigiCash.Controllers
             _transactionService = transactionService;
         }   
         [HttpGet("route/api")]
-        public async Task<IActionResult> transactionHistory([FromBody] RequestModel request)
+       /* public async Task<IActionResult> TransactionHistory([FromBody] RequestModel request)
         {
-            /*try
+            try
             {
                 var histories = null;//_transactionService.getHistory(request.walletId);
                 return Ok(histories);
@@ -26,8 +26,21 @@ namespace DigiCash.Controllers
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
-            }*/
+            }
             return null;
+        }*/
+
+        public async Task<IActionResult> ShowTransactionHistory(RequestModel request)
+        {
+            try
+            {
+                var histories = _transactionService.GetHistory(request.WalletId);
+                return Ok(histories);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Bir hata meydana geldi \n" + ex.Message);
+            }
         }
     }
 }

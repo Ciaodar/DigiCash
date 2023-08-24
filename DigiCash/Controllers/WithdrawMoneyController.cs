@@ -22,7 +22,7 @@ namespace DigiCash.Controllers
                 bool response;
                 if (request.Amount != null && request.WalletId != null)
                 {
-                    response = await _withdrawServices.withdraw(request.WalletId, request.Amount ?? 0);
+                    response = await _withdrawServices.Withdraw(request.WalletId, request.Amount ?? 0);
                 }
                 else
                 {

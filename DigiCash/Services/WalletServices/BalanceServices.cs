@@ -36,7 +36,6 @@ namespace DigiCash.Services
                     }
                 }
             }
-
             return balance;
         }
     }

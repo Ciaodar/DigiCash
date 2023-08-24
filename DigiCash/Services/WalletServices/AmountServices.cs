@@ -15,32 +15,32 @@ namespace DigiCash.Services
         }
         public async Task<bool> CheckWithdrawAmount(string walletId, double amount)
         {
-            //    if (//if yapısı kontrol bölümü kısaltma
-            //        amount < _configServices.getMaxWithdraw() &&
-            //        amount < await _balanceServices.GetBalanceAsync(walletId) &&
-            //        (_transactionServices.getHistory(walletId) + amount) < _configServices.getMaxWithdraw())
-            //    {
-            //        return true;
-            //    }
-            //    else
-            //    {
-            //        return false;
-            //    }
-            //}
-            //public async Task<bool> CheckTransferAmount(string walletId, double amount)
-            //{
-            //    if (
-            //        amount < _configServices.getMaxTransfer() &&
-            //        amount < await _balanceServices.getBalanceAsync(walletId) &&
-            //        (_transactionServices.getHistory(walletId) + amount) < _configServices.getMaxWithdraw()
-            //        )
-            //    {
-            //        return true;
-            //    }
-            //    else
-            //    {
-            //        return false;
-            //    }
+                if (//if yapısı kontrol bölümü kısaltma
+                    amount < _configServices.getMaxWithdraw() &&
+                    amount < await _balanceServices.GetBalanceAsync(walletId) &&
+                    (_transactionServices.GetHistory(walletId) + amount) < _configServices.getMaxWithdraw())
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            public async Task<bool> CheckTransferAmount(string walletId, double amount)
+            {
+                if (
+                    amount < _configServices.getMaxTransfer() &&
+                    amount < await _balanceServices.GetBalanceAsync(walletId) &&
+                    (_transactionServices.GetHistory(walletId) + amount) < _configServices.getMaxWithdraw()
+                    )
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             return false;
         }
     }

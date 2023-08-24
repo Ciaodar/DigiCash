@@ -17,7 +17,8 @@ namespace DigiCash.Services
             var database = client.GetDatabase(mongoDbSettings.Value.DatabaseName);
             _collection = database.GetCollection<ProcessHistory>(mongoDbSettings.Value.CollectionName);
         }
-        public async  void addValue(ProcessHistory processHistory)
+        public IMongoCollection<ProcessHistory> GetCollection() { return _collection; }
+        public async  void AddValue(ProcessHistory processHistory)
         {
             await _collection.UpdateOneAsync(Builders<ProcessHistory>.Filter.Eq( _ => _.WalletId, processHistory.WalletId),
                 Builders<ProcessHistory>.Update.SetOnInsert( _ => _.WalletId, processHistory.WalletId).
@@ -25,7 +26,7 @@ namespace DigiCash.Services
                 new UpdateOptions() { IsUpsert = true });
         }
 
-       public async  Task<Object> getValue(string id)
+       public async  Task<ProcessHistory> GetValue(string id)
         {
             var filter = Builders<ProcessHistory>.Filter
                 .Eq(r => r.WalletId, id);

@@ -16,14 +16,14 @@ namespace DigiCash.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> moneyTransfer([FromBody] RequestModel request)
+        public async Task<IActionResult> MoneyTransfer([FromBody] RequestModel request)
         {
             try 
             {
                 bool response;
                 if (request.Amount != null && request.WalletId != null&& request.TargetWalletId != null)
                 {
-                    response = await _transferMoney.transferMoney(request.WalletId,request.TargetWalletId,request.Amount ?? 0);
+                    response = await _transferMoney.TransferMoney(request.WalletId,request.TargetWalletId,request.Amount ?? 0);
                 }
                 else
                 {

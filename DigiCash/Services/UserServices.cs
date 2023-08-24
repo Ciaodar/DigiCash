@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 namespace DigiCash.Services
 {
     public class UserServices
-    {/*
+    {
         private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
         private readonly ILogger<UserServices> _logger;
@@ -21,10 +21,10 @@ namespace DigiCash.Services
         {
             User user = new User
             {
-                firstName = firstName,
-                lastName = lastName,
-                password = password,
-                tc = TcKimlikNo
+                FirstName = firstName,
+                LastName = lastName,
+                Password = password,
+                TcKimlikNo = TcKimlikNo
             };
             AddUserToDb(user);
             return true;
@@ -57,7 +57,7 @@ namespace DigiCash.Services
         public async Task<IdentityResult> ResetPassword(User user)
         {
             await _userManager.RemovePasswordAsync(user);
-            var result = await _userManager.AddPasswordAsync(user, user.password);
+            var result = await _userManager.AddPasswordAsync(user, user.Password);
             return result;
         }
         public async Task<IdentityResult> DeleteUser(User user)
@@ -65,6 +65,6 @@ namespace DigiCash.Services
             return await _userManager.DeleteAsync(user);
         }
 
-    */}
+    }
 }
 

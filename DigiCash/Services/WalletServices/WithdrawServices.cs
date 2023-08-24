@@ -17,7 +17,7 @@ namespace DigiCash.Services.WalletServices
             _transactionService = transactionService;
         }
 
-        public async Task<bool> withdraw(string walletId, double amount)
+        public async Task<bool> Withdraw(string walletId, double amount)
         {
             bool withdrawAmountIsOkey = await _amountServices.CheckWithdrawAmount(walletId, amount);
             if (!withdrawAmountIsOkey) { return false; }
@@ -30,7 +30,7 @@ namespace DigiCash.Services.WalletServices
                     _balance -= amount;
                     wallet.Balance = _balance;
                     _postgreSqlServices.SetBalance(_balance,walletId);
-                    //_transactionService.addHistory(walletId, new Process("Withdraw", _balance + amount, _balance, null));
+                    _transactionService.AddHistory(walletId, new Process("Withdraw", _balance + amount, _balance, null));
                     return true;
                 }
                 else

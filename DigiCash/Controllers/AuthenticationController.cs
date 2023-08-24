@@ -26,29 +26,29 @@ namespace DigiCash.Controllers
         {
             var signInResult = await _signInManager.PasswordSignInAsync(user.TcKimlikNo, user.Password, isPersistent: false, lockoutOnFailure: false);
 
-        //    if (signInResult.Succeeded)
-        //    {
-        //        var token = createToken(user);
-        //        return Ok(token);
-        //    }
-        //    else
-        //    {
-        //        return Unauthorized(new { message = "Yanlis bilgiler girildi." });
-        //    }
+            if (signInResult.Succeeded)
+            {
+                var token = createToken(user);
+                return Ok(token);
+            }
+            else
+            {
+                return Unauthorized(new { message = "Yanlis bilgiler girildi." });
+            }
            
     
-        //}
+        }
 
-        //private User? authenticateUser(User user) {
-        //    throw new NotImplementedException();
-        //}
+        private User? authenticateUser(User user) {
+            throw new NotImplementedException();
+        }
 
-        //private string createToken(User user)
-        //{
-        //    if (_jwtModel.Key == null) throw new Exception("JWT Key değeri null olamaz.");
+        private string createToken(User user)
+        {
+            if (_jwtModel.Key == null) throw new Exception("JWT Key değeri null olamaz.");
 
-        //    var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtModel.Key));
-        //    var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtModel.Key));
+            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
             var claimList = new[]
             {
@@ -58,7 +58,7 @@ namespace DigiCash.Controllers
             };
             var token = new JwtSecurityToken(_jwtModel.Issuer, _jwtModel.Audience, claimList, expires: DateTime.Now.AddMonths(3) , signingCredentials: credentials);
 
-        //    return new JwtSecurityTokenHandler().WriteToken(token);
-        //}
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
     }
 }

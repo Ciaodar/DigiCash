@@ -1,3 +1,5 @@
+import { StyleSheet , Image } from "react-native";
+
 export const GlobalStyles = {
     colors: {
       primaryMain: "#13c782",
@@ -15,3 +17,45 @@ export const GlobalStyles = {
       gray700: '#221c30',
     },
   };
+
+export const styles = StyleSheet.create({
+  container : {
+    fontSize: 24,
+    fontStyle: "italic",
+    marginBottom : 2,
+    fontWeight : 'bold',
+    textAlign : 'center',
+  }, 
+
+  generalView : {
+    margin : 12,
+  },
+
+  paragraph: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginTop : 8,
+    marginBottom : 8,
+
+  },
+  digiCash : {
+    width : 200,
+    height : 150,
+    alignItems : "center" 
+  },
+});
+
+export const images = StyleSheet.create({
+  digiCash : {
+    width : 200,
+    height : 150,
+    alignSelf : 'center', 
+  }
+});
+
+
+
+
+
+  

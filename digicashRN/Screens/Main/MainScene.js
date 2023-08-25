@@ -1,6 +1,8 @@
 import { useEffect } from "react";
-import { View, Text } from "react-native";
+import { View, Text , SafeAreaView , Image } from "react-native";
 import ShowBalance from "../../components/main/ShowBalance";
+import Button from "../../components/ui/Button"
+import {styles , GlobalStyles} from "../../constants/style";
 
 function MainScene(){
 
@@ -8,13 +10,20 @@ function MainScene(){
 
     })
     return(
-        <View>
-            <Text>balance-wallet</Text>
+        <SafeAreaView>
+            <View style = {styles.generalView}>
+            <Image source={require("../../assets/DigiCash.png")} style = {styles.digiCash}/>
+        <View>          
+            <Text style = {styles.container}>Balance Wallet</Text>
             <ShowBalance/>
-            <Text>Transfer buton</Text>
-            <Text>İşlem geçmişi</Text>
+            <Text style = {styles.paragraph}>Transfer Buton</Text>
+            <Text style = {styles.paragraph}>İşlem Geçmişi</Text>
+            
         </View>
+        </View>
+        </SafeAreaView>
     );
 }
+
 
 export default MainScene;

@@ -10,7 +10,6 @@ namespace DigiCash.Controllers
     public class MoneyTransferController : Controller
     {
         TransferMoneyServices _transferMoney;
-
         public MoneyTransferController(TransferMoneyServices transferMoney) {
             _transferMoney = transferMoney;
         }

@@ -10,7 +10,7 @@ import { GlobalStyles } from "../../constants/style";
                     <Text style={styles.balanceText}>Your Balance</Text>
                 </View>
                 <View>
-                    <Text style={styles.amountText}>$2,898.0</Text>
+                    <Text style={styles.amountText}>$36,8</Text>
                 </View>
             </View>
         </View>
@@ -25,7 +25,6 @@ import { GlobalStyles } from "../../constants/style";
         backgroundColor:GlobalStyles.colors.primaryMain,
         borderRadius:32,
         marginHorizontal:20,
-        marginTop:30,
         paddingVertical:30,
     },
     balanceWrapper:{

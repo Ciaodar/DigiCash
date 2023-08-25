@@ -4,6 +4,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import MainScene from './Screens/Main/MainScene';
 import TransferScene from './Screens/Main/TransferScene';
 import AccountContextProvider from './context/accountContext';
+import Button from './components/ui/Button';
 
 const Stack = createNativeStackNavigator();
 
@@ -23,6 +24,7 @@ export default function App() {
       <NavigationContainer>
         <MainNavigation/>
       </NavigationContainer>
+      <Button></Button>
     </AccountContextProvider>
     </>
   );

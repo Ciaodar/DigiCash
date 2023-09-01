@@ -35,8 +35,6 @@ namespace DigiCash.Controllers
             {
                 return Unauthorized(new { message = "Yanlis bilgiler girildi." });
             }
-           
-    
         }
 
         private User? authenticateUser(User user) {

@@ -47,11 +47,11 @@ export const styles = StyleSheet.create({
 });
 
 export const images = StyleSheet.create({
-  digiCash : {
+  imageContainer : {
     width : 200,
     height : 150,
     alignSelf : 'center', 
-  }
+  },
 });
 
 

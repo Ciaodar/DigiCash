@@ -2,7 +2,9 @@ import { StatusBar } from 'expo-status-bar';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import MainScene from './Screens/Main/MainScene';
-import TransferScene from './Screens/Main/TransferScene';
+import TransferScene from './Screens/Transactions/TransferScene';
+import SignInScreen from './Screens/Authentication/SignInScreen';
+import SignUpScreen from './Screens/Authentication/SignUpScreen';
 import AccountContextProvider from './context/accountContext';
 import Button from './components/ui/Button';
 

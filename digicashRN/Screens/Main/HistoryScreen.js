@@ -1,5 +1,6 @@
-import { View , Text } from "react-native";
+import {StyleSheet , View , Text } from "react-native";
 import { styles } from "../../constants/style.js";
+import { GlobalStyles } from "../../constants/style.js";
 
 function HistoryScreen(){
         return(
@@ -9,4 +10,4 @@ function HistoryScreen(){
         );
 }
 
-export default HistoryScreen(); 
+export default HistoryScreen; 

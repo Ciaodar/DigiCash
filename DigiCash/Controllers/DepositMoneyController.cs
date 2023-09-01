@@ -38,15 +38,6 @@ namespace DigiCash.Controllers
             {
                 return BadRequest();
             }
-            if (request.Amount != null && request.WalletId != null)
-            {
-                Response = await _depositServices.Deposit(request.WalletId, request.Amount ?? 0);
-            }
-            else
-            {
-                return BadRequest("You didn't send an ID or an Amount value");
-            }
-
             if (request.Amount == null || request.WalletId == null) { return BadRequest("You didn't send an ID or an Amount value");}
 
             Response = await _depositServices.Deposit(request.WalletId, request.Amount ?? 0);
